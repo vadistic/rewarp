@@ -1,7 +1,7 @@
 import { CustomScalar, Scalar } from '@nestjs/graphql'
-import { Kind } from 'graphql'
+import { Kind, ASTNode } from 'graphql'
 
-@Scalar('Date', type => Date)
+@Scalar('Date', of => Date)
 export class DateScalar implements CustomScalar<string, Date> {
   description = 'Custom scalar date type (ISO8601 string)'
 
@@ -13,7 +13,7 @@ export class DateScalar implements CustomScalar<string, Date> {
     return value.toISOString() // value sent to the client
   }
 
-  parseLiteral(ast: any): Date {
+  parseLiteral(ast: ASTNode): Date {
     if (ast.kind === Kind.STRING) {
       return new Date(ast.value)
     }

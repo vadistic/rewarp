@@ -1,9 +1,10 @@
 {
   "name": "rewarp-server",
-  "version": "0.0.1",
-  "description": "",
-  "author": "",
-  "license": "MIT",
+  "version": "0.1.0",
+  "description": "Time tracking app",
+  "author": "Jakub Wadas <vadistic@gmail.com>",
+  "license": "No License",
+  "private": true,
   "scripts": {
     "env": "env-cmd -f ./../.env",
     "build": "rm -rf dist && tsc -p tsconfig.build.json",
@@ -12,7 +13,7 @@
     "start:dev": "env tsc-watch -p tsconfig.build.json --onSuccess \"node dist/main.js\"",
     "start:debug": "env tsc-watch -p tsconfig.build.json --onSuccess \"node --inspect-brk dist/main.js\"",
     "start:prod": "env node dist/main.js",
-    "lint": "tslint -p tsconfig.json -c tslint.json",
+    "lint": "eslint src/**/*.ts",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
@@ -28,7 +29,6 @@
     "apollo-server-express": "^2.9.3",
     "class-transformer": "^0.2.3",
     "class-validator": "^0.10.0",
-    "dotenv": "^8.1.0",
     "graphql": "^14.5.7",
     "pg": "^7.12.1",
     "reflect-metadata": "^0.1.12",
@@ -38,7 +38,6 @@
   },
   "devDependencies": {
     "@nestjs/testing": "^6.0.0",
-    "@types/dotenv": "^6.1.1",
     "@types/express": "4.17.1",
     "@types/jest": "24.0.18",
     "@types/node": "12.7.5",
@@ -49,7 +48,9 @@
     "env-cmd": "^10.0.1",
     "eslint": "^6.4.0",
     "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-config-prettier": "^6.3.0",
     "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-prettier": "^3.1.1",
     "jest": "24.9.0",
     "prettier": "1.18.2",
     "supertest": "4.0.2",
@@ -59,19 +60,5 @@
     "tsconfig-paths": "3.9.0",
     "tslint": "5.20.0",
     "typescript": "3.6.3"
-  },
-  "jest": {
-    "moduleFileExtensions": [
-      "js",
-      "json",
-      "ts"
-    ],
-    "rootDir": "src",
-    "testRegex": ".spec.ts$",
-    "transform": {
-      "^.+\\.(t|j)s$": "ts-jest"
-    },
-    "coverageDirectory": "./coverage",
-    "testEnvironment": "node"
   }
 }

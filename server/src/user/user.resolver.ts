@@ -1,8 +1,8 @@
 import { Resolver, Query, Args } from '@nestjs/graphql'
+import { NotFoundException } from '@nestjs/common'
 import { User } from './user.model'
 import { UserService } from './user.service'
 import { ID } from '../common/base/base.types'
-import { NotFoundException } from '@nestjs/common'
 
 @Resolver((of: void) => User)
 export class UserResolver {

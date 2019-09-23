@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common'
 import { GraphQLModule } from '@nestjs/graphql'
-import { RecipesModule } from './recipes/recipes.module'
-import { TypeOrmModuleOptions, TypeOrmModule } from '@nestjs/typeorm'
+import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm'
 import { join } from 'path'
+import { RecipesModule } from './recipes/recipes.module'
 import { UserModule } from './user/user.module'
 
 const typeOrmOptions: TypeOrmModuleOptions = {
@@ -20,8 +20,6 @@ const typeOrmOptions: TypeOrmModuleOptions = {
   // ssl needed for heroku
   ssl: true,
 }
-
-console.log(typeOrmOptions)
 
 @Module({
   imports: [

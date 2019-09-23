@@ -12,10 +12,10 @@ export class UserService {
   ) {}
 
   async findAll(): Promise<User[]> {
-    return await this.userRepo.find()
+    return this.userRepo.find()
   }
 
   async findOne(id: ID): Promise<User | undefined> {
-    return await this.userRepo.findOne(id)
+    return this.userRepo.findOne(id)
   }
 }
