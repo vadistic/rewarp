@@ -1,5 +1,5 @@
 module.exports = {
-  extends: ['airbnb-base', 'plugin:@typescript-eslint/recommended', 'plugin:prettier/recommended'],
+  extends: ['airbnb-base', 'prettier', 'plugin:@typescript-eslint/recommended'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     // project: './tsconfig.json',
@@ -22,24 +22,33 @@ module.exports = {
     jest: true,
   },
   rules: {
-    'prettier/prettier': 'error',
+    // 'prettier/prettier': 'error',
     // prefer named
     'import/prefer-default-export': 'off',
     'import/no-default-export': 'error',
     // allow constructor assigment injection
     'no-useless-constructor': 'off',
     '@typescript-eslint/no-useless-constructor': 'error',
-    // allow using classes for everythign
+    // allow simple class methods
     'class-methods-use-this': 'off',
+    // allow type-graphql style unused args
     '@typescript-eslint/no-unused-vars': [
       'error',
       {
         vars: 'all',
         args: 'after-used',
         ignoreRestSiblings: true,
-        // alow type-graphql style args
         argsIgnorePattern: '^_|of|type|returns',
       },
+    ],
+    // allow tiny classes
+    'max-classes-per-file': 'off',
+    // allow sanity
+    '@typescript-eslint/no-explicit-any': 'off',
+    // allow testing
+    'import/no-extraneous-dependencies': [
+      'error',
+      { devDependencies: ['**/*.test.ts', '**/*.spec.ts'] },
     ],
   },
 }

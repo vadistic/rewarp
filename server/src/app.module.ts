@@ -2,8 +2,10 @@ import { Module } from '@nestjs/common'
 import { GraphQLModule } from '@nestjs/graphql'
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm'
 import { join } from 'path'
-import { RecipesModule } from './recipes/recipes.module'
 import { UserModule } from './user/user.module'
+import { CommonModule } from './common/common.module'
+import { ProjectModule } from './project/project.module'
+import { AuthModule } from './auth/auth.module'
 
 const typeOrmOptions: TypeOrmModuleOptions = {
   type: 'postgres',
@@ -23,12 +25,16 @@ const typeOrmOptions: TypeOrmModuleOptions = {
 
 @Module({
   imports: [
-    RecipesModule,
+    CommonModule,
+    AuthModule,
     UserModule,
+    ProjectModule,
     TypeOrmModule.forRoot(typeOrmOptions),
     GraphQLModule.forRoot({
+      context: ({ req }) => ({ req }),
       installSubscriptionHandlers: true,
       autoSchemaFile: 'schema.graphql',
+      mockEntireSchema: true,
     }),
   ],
 })

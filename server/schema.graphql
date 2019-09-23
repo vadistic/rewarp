@@ -3,43 +3,52 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
-"""Custom scalar date type (ISO8601 string)"""
-scalar Date
-
-type Mutation {
-  addRecipe(newRecipeData: NewRecipeInput!): Recipe!
-  removeRecipe(id: String!): Boolean!
+input BaseWhereInput {
+  id_eq: String
+  id_in: [String!]
+  createdAt_eq: String
+  createdAt_lte: String
+  createdAt_gte: String
+  updatedAt_eq: String
+  updatedAt_lte: String
+  updatedAt_gte: String
 }
 
-input NewRecipeInput {
-  title: String!
+"""ISO8601 DateTime String (but unix timestamp will also be accepted"""
+scalar Date
+
+type Project {
+  id: ID!
+  createdAt: Date!
+  updatedAt: Date!
+  name: String!
   description: String
-  ingredients: [String!]!
 }
 
 type Query {
-  recipe(id: String!): Recipe!
-  recipes(skip: Int = 0, take: Int = 25): [Recipe!]!
-  user(id: String!): User!
+  user(where: WhereUniqueInput!): User!
   users: [User!]!
-}
-
-type Recipe {
-  id: ID!
-  title: String!
-  description: String
-  creationDate: Date!
-  ingredients: [String!]!
-}
-
-type Subscription {
-  recipeAdded: Recipe!
+  project(id: String!): Project!
+  projects: [Project!]!
 }
 
 type User {
-  id: String!
+  id: ID!
   createdAt: Date!
   updatedAt: Date!
-  name: String
   email: String!
+  name: String
+  avatarUrl: String
+}
+
+input WhereUniqueInput {
+  id: ID!
+}
+
+type Workspace {
+  id: ID!
+  createdAt: Date!
+  updatedAt: Date!
+  name: String!
+  description: String
 }

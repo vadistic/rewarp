@@ -1,14 +1,18 @@
 import { Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm'
-import { ID } from './base.types'
+import { ObjectType, Field, ID } from 'type-graphql'
 
 @Entity()
+@ObjectType({ isAbstract: true })
 export abstract class Base {
+  @Field(type => ID)
   @PrimaryGeneratedColumn('uuid')
-  id!: ID
+  id!: string
 
+  @Field()
   @CreateDateColumn()
   createdAt!: Date
 
+  @Field()
   @UpdateDateColumn()
   updatedAt!: Date
 }
