@@ -1,0 +1,9 @@
+{
+  "name": "rewarp-app",
+  "version": "0.1.0",
+  "description": "Time tracking app",
+  "repository": "https://github.com/vadistic/rewarp",
+  "author": "Jakub <vadistic@gmail.com>",
+  "license": "No license",
+  "private": true
+}
