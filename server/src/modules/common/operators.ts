@@ -1,18 +1,6 @@
-import {
-  Equal,
-  FindOperator,
-  In,
-  IsNull,
-  LessThan,
-  MoreThan,
-  Not,
-  Raw,
-} from 'typeorm'
+import { Equal, FindOperator, In, IsNull, LessThan, MoreThan, Not, Raw } from 'typeorm'
 
-export const getFindOperator = (
-  key: string,
-  value: any,
-): [string, FindOperator<any>] => {
+export const mapFindOperator = <T>([key, value]: [string, any]): [string, FindOperator<T>] => {
   const [attr, operator = 'eq'] = key.split('_')
 
   switch (operator) {
@@ -43,3 +31,10 @@ export const getFindOperator = (
       throw new Error(`Can't find operator ${operator}`)
   }
 }
+
+// ! make it one loop with skipping of undefs
+
+export const mapFindConditions = (where: any) =>
+  Object.entries(where)
+    .map(mapFindOperator)
+    .map(([attr, op]) => ({ [attr]: op }))

@@ -20,15 +20,6 @@ module.exports = {
     jest: true,
   },
   rules: {
-    // // 'prettier/prettier': 'error',
-    // // prefer named
-    // 'import/prefer-default-export': 'off',
-    // 'import/no-default-export': 'error',
-    // // allow constructor assigment injection
-    // 'no-useless-constructor': 'off',
-    // '@typescript-eslint/no-useless-constructor': 'error',
-    // // allow simple class methods
-    // 'class-methods-use-this': 'off',
     // // allow type-graphql style unused args
     '@typescript-eslint/no-unused-vars': [
       'error',
@@ -39,10 +30,20 @@ module.exports = {
         argsIgnorePattern: '^_|of|type|returns',
       },
     ],
-    // // allow tiny classes
-    // 'max-classes-per-file': 'off',
     // allow sanity
     '@typescript-eslint/no-explicit-any': 'off',
+    // alow return type inference in resolvers etc
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    // // prefer named
+    // 'import/prefer-default-export': 'off',
+    // 'import/no-default-export': 'error',
+    // // allow constructor assigment injection
+    // 'no-useless-constructor': 'off',
+    // '@typescript-eslint/no-useless-constructor': 'error',
+    // // allow simple class methods
+    // 'class-methods-use-this': 'off',
+    // // allow tiny classes
+    // 'max-classes-per-file': 'off',
     // // allow testing
     // 'import/no-extraneous-dependencies': [
     //   'error',

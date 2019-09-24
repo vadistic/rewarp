@@ -3,19 +3,20 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
-input BaseWhereInput {
-  id_eq: String
-  id_in: [String!]
-  createdAt_eq: String
-  createdAt_lte: String
-  createdAt_gte: String
-  updatedAt_eq: String
-  updatedAt_lte: String
-  updatedAt_gte: String
+type AuthPayload {
+  token_type: String!
+  access_token: String!
+  refresh_token: String
 }
 
 """ISO8601 DateTime String (but unix timestamp will also be accepted"""
 scalar Date
+
+type Mutation {
+  login(password: String!, email: String!): AuthPayload!
+  refresh(token: String!): AuthPayload!
+  createUser(data: UserCreateInput!): User!
+}
 
 type Project {
   id: ID!
@@ -25,24 +26,45 @@ type Project {
   description: String
 }
 
+input ProjectCreateInput {
+  name: String!
+  description: String
+}
+
+input ProjectWhereUniqueInput {
+  id: String!
+}
+
 type Query {
-  user(where: WhereUniqueInput!): User!
+  privateString: String!
+  publicString: String!
+  user(where: UserWhereUniqueInput!): User
   users: [User!]!
-  project(id: String!): Project!
+  project(where: ProjectWhereUniqueInput!): Project!
   projects: [Project!]!
+  workspace(where: WorkspaceWhereUniqueInput!): Workspace!
+  workspaces: [Workspace!]!
 }
 
 type User {
   id: ID!
   createdAt: Date!
   updatedAt: Date!
+  password: String!
   email: String!
   name: String
   avatarUrl: String
 }
 
-input WhereUniqueInput {
-  id: ID!
+input UserCreateInput {
+  email: String!
+  password: String!
+  name: String
+}
+
+input UserWhereUniqueInput {
+  id: String
+  email: String
 }
 
 type Workspace {
@@ -51,4 +73,13 @@ type Workspace {
   updatedAt: Date!
   name: String!
   description: String
+}
+
+input WorkspaceCreateInput {
+  name: String!
+  description: String
+}
+
+input WorkspaceWhereUniqueInput {
+  id: String
 }

@@ -2,25 +2,40 @@ import { Module } from '@nestjs/common'
 import { GraphQLModule } from '@nestjs/graphql'
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm'
 import { join } from 'path'
-import { UserModule } from './user/user.module'
-import { CommonModule } from './common/common.module'
-import { ProjectModule } from './project/project.module'
-import { AuthModule } from './auth/auth.module'
+import { DefaultNamingStrategy } from 'typeorm'
 
-const typeOrmOptions: TypeOrmModuleOptions = {
+import { CommonModule } from './modules/common/common.module'
+import { AuthModule } from './modules/auth/auth.module'
+import { UserModule } from './modules/user/user.module'
+import { ProjectModule } from './modules/project/project.module'
+import { WorkspaceModule } from './modules/workspace/workspace.module'
+import { CONFIG } from './config'
+
+class CustomNamingStrategy extends DefaultNamingStrategy {
+  name = 'Custom'
+
+  tableName(targetName: string, userSpecifiedName?: string): string {
+    console.log(targetName, userSpecifiedName)
+
+    return userSpecifiedName || targetName.replace(/entity/gi, '')
+  }
+}
+
+export const typeOrmOptions: TypeOrmModuleOptions = {
   type: 'postgres',
-  host: process.env.PGHOST || 'localhost',
-  port: process.env.PGPORT ? +process.env.PGPORT : 5432,
-  username: process.env.PGUSER || 'root',
-  password: process.env.PGPASSWORD || 'root',
-  database: process.env.PGDATABASE || 'test',
-  schema: process.env.PGSCHEMA || 'public',
+  host: CONFIG.DB_HOST,
+  port: CONFIG.DB_PORT,
+  username: CONFIG.DB_USERNAME,
+  password: CONFIG.DB_PASSWORD,
+  database: CONFIG.DB_NAME,
+  schema: CONFIG.DB_SCHEMA,
   // .js needed to work after compilation...
   entities: [join(__dirname, '**/**.entity.{ts,js}')],
-  synchronize: true,
+  synchronize: false,
   logging: 'all',
   // ssl needed for heroku
   ssl: true,
+  namingStrategy: new CustomNamingStrategy(),
 }
 
 @Module({
@@ -29,6 +44,7 @@ const typeOrmOptions: TypeOrmModuleOptions = {
     AuthModule,
     UserModule,
     ProjectModule,
+    WorkspaceModule,
     TypeOrmModule.forRoot(typeOrmOptions),
     GraphQLModule.forRoot({
       context: ({ req }) => ({ req }),
