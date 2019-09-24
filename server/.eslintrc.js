@@ -1,37 +1,35 @@
+// one true order of plugins !
+// https://www.npmjs.com/package/@typescript-eslint/eslint-plugin
 module.exports = {
-  extends: ['airbnb-base', 'prettier', 'plugin:@typescript-eslint/recommended'],
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended',
+    'prettier',
+    'prettier/@typescript-eslint',
+  ],
   parser: '@typescript-eslint/parser',
-  parserOptions: {
-    // project: './tsconfig.json',
-    ecmaVersion: 2018,
-    sourceType: 'module',
-  },
-  settings: {
-    // Append 'ts' extensions to Airbnb 'import/resolver' setting
-    'import/resolver': {
-      node: {
-        extensions: ['.mjs', '.js', '.ts', '.json'],
-      },
-    },
-    // Append 'ts' extensions to Airbnb 'import/extensions' setting
-    'import/extensions': ['.js', '.ts', '.mjs'],
-  },
+  plugins: ['@typescript-eslint'],
+  // required for typechecking rules
+  // parserOptions: {
+  //   project: './tsconfig.json',
+  // },
   env: {
     es6: true,
     node: true,
     jest: true,
   },
   rules: {
-    // 'prettier/prettier': 'error',
-    // prefer named
-    'import/prefer-default-export': 'off',
-    'import/no-default-export': 'error',
-    // allow constructor assigment injection
-    'no-useless-constructor': 'off',
-    '@typescript-eslint/no-useless-constructor': 'error',
-    // allow simple class methods
-    'class-methods-use-this': 'off',
-    // allow type-graphql style unused args
+    // // 'prettier/prettier': 'error',
+    // // prefer named
+    // 'import/prefer-default-export': 'off',
+    // 'import/no-default-export': 'error',
+    // // allow constructor assigment injection
+    // 'no-useless-constructor': 'off',
+    // '@typescript-eslint/no-useless-constructor': 'error',
+    // // allow simple class methods
+    // 'class-methods-use-this': 'off',
+    // // allow type-graphql style unused args
     '@typescript-eslint/no-unused-vars': [
       'error',
       {
@@ -41,14 +39,14 @@ module.exports = {
         argsIgnorePattern: '^_|of|type|returns',
       },
     ],
-    // allow tiny classes
-    'max-classes-per-file': 'off',
+    // // allow tiny classes
+    // 'max-classes-per-file': 'off',
     // allow sanity
     '@typescript-eslint/no-explicit-any': 'off',
-    // allow testing
-    'import/no-extraneous-dependencies': [
-      'error',
-      { devDependencies: ['**/*.test.ts', '**/*.spec.ts'] },
-    ],
+    // // allow testing
+    // 'import/no-extraneous-dependencies': [
+    //   'error',
+    //   { devDependencies: ['**/*.test.ts', '**/*.spec.ts'] },
+    // ],
   },
 }

@@ -4,7 +4,7 @@ import { UserService } from './user.service'
 import { User } from './user.entity'
 import { WhereUniqueInputArgs } from '../common/base/where.input'
 
-@Resolver(() => User)
+@Resolver(User)
 export class UserResolver {
   constructor(private readonly userService: UserService) {}
 
@@ -24,6 +24,8 @@ export class UserResolver {
 
   @Query(returns => [User])
   async users(): Promise<User[]> {
+    console.log('users resolver called')
+
     return this.userService.findAll()
   }
 }

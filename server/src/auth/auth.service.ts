@@ -1,30 +1,33 @@
 import { Injectable } from '@nestjs/common'
-import { JwtService } from '@nestjs/jwt'
 import { UserService } from '../user/user.service'
-import { AuthArgs } from './auth.dto'
+import { JwtService } from '@nestjs/jwt'
 import { User } from '../user/user.entity'
 import { AuthPayload } from './auth.model'
 
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly userService: UserService,
+    private readonly usersService: UserService,
     private readonly jwtService: JwtService,
   ) {}
 
-  async validate(args: AuthArgs): Promise<User | null> {
-    const user = await this.userService.findByEmail(args.email)
+  async validateLocal(email: string, password: string): Promise<User | null> {
+    const user = await this.usersService.findByEmail(email)
 
-    if (user && user.password === args.password) return user
+    if (user && user.password === password) {
+      return user
+    }
 
     return null
   }
 
-  //  ADD TENANT ID & create interface
+  // guessing it's called with validate payload ??
   async login(user: User): Promise<AuthPayload> {
-    const payload = { sub: user.id, email: user.email }
+    const payload = { email: user.email, sub: user.id }
+
     return {
-      token: this.jwtService.sign(payload),
+      // eslint-disable-next-line @typescript-eslint/camelcase
+      access_token: this.jwtService.sign(payload),
     }
   }
 }

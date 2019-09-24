@@ -15,7 +15,7 @@ const typeOrmOptions: TypeOrmModuleOptions = {
   password: process.env.PGPASSWORD || 'root',
   database: process.env.PGDATABASE || 'test',
   schema: process.env.PGSCHEMA || 'public',
-  // js needed to work after compilation...
+  // .js needed to work after compilation...
   entities: [join(__dirname, '**/**.entity.{ts,js}')],
   synchronize: true,
   logging: 'all',
@@ -34,7 +34,6 @@ const typeOrmOptions: TypeOrmModuleOptions = {
       context: ({ req }) => ({ req }),
       installSubscriptionHandlers: true,
       autoSchemaFile: 'schema.graphql',
-      mockEntireSchema: true,
     }),
   ],
 })
