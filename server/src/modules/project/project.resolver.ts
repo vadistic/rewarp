@@ -1,21 +1,15 @@
 import { Resolver, Query, Args } from '@nestjs/graphql'
-import { NotFoundException } from '@nestjs/common'
-import { Project } from './project.entity'
 import { ProjectService } from './project.service'
+import { ProjectWhereUniqueInput } from './project.dto'
+import { Project } from './project.model'
 
-@Resolver((of: void) => Project)
+@Resolver(Project)
 export class ProjectResolver {
   constructor(private readonly projectService: ProjectService) {}
 
   @Query(returns => Project)
-  async project(@Args('id') id: string): Promise<Project | null> {
-    const user = await this.projectService.findOne(id)
-
-    if (!user) {
-      throw new NotFoundException(id)
-    }
-
-    return user
+  async project(@Args('where') where: ProjectWhereUniqueInput): Promise<Project | null> {
+    return (await this.projectService.findOne(where)) || null
   }
 
   @Query(returns => [Project])
