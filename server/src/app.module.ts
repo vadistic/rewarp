@@ -2,24 +2,16 @@ import { Module } from '@nestjs/common'
 import { GraphQLModule } from '@nestjs/graphql'
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm'
 import { join } from 'path'
-import { DefaultNamingStrategy } from 'typeorm'
 
 import { CommonModule } from './modules/common/common.module'
 import { AuthModule } from './modules/auth/auth.module'
 import { UserModule } from './modules/user/user.module'
 import { ProjectModule } from './modules/project/project.module'
 import { WorkspaceModule } from './modules/workspace/workspace.module'
+import { LoggerModule } from './modules/logger/logger.module'
+
 import { CONFIG } from './config'
-
-class CustomNamingStrategy extends DefaultNamingStrategy {
-  name = 'Custom'
-
-  tableName(targetName: string, userSpecifiedName?: string): string {
-    console.log(targetName, userSpecifiedName)
-
-    return userSpecifiedName || targetName.replace(/entity/gi, '')
-  }
-}
+import { CustomNamingStrategy } from './app.naming'
 
 export const typeOrmOptions: TypeOrmModuleOptions = {
   type: 'postgres',
@@ -32,7 +24,8 @@ export const typeOrmOptions: TypeOrmModuleOptions = {
   // .js needed to work after compilation...
   entities: [join(__dirname, '**/**.entity.{ts,js}')],
   synchronize: false,
-  logging: 'all',
+  logging: CONFIG.LOG_LEVEL_TORM,
+  logger: CONFIG.LOG_TYPE_TORM,
   // ssl needed for heroku
   ssl: true,
   namingStrategy: new CustomNamingStrategy(),
@@ -41,6 +34,7 @@ export const typeOrmOptions: TypeOrmModuleOptions = {
 @Module({
   imports: [
     CommonModule,
+    LoggerModule,
     AuthModule,
     UserModule,
     ProjectModule,

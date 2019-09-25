@@ -40,8 +40,7 @@
     "reflect-metadata": "^0.1.12",
     "rxjs": "^6.3.3",
     "type-graphql": "^0.17.5",
-    "typeorm": "^0.2.19",
-    "winston": "^3.2.1"
+    "typeorm": "^0.2.19"
   },
   "devDependencies": {
     "@nestjs/testing": "^6.7.2",

@@ -10,11 +10,7 @@ import { ExecutionContextHost } from '@nestjs/core/helpers/execution-context-hos
 @Injectable()
 export class GraphqlAuthGuard extends AuthGuard('jwt') {
   // inserts req object with user into execution context
-  canActivate(
-    context: ExecutionContext,
-  ): boolean | Promise<boolean> | Observable<boolean> {
-    console.log(`GraphqlAuthGuard.canActivate() called`)
-
+  canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
     const ctx = GqlExecutionContext.create(context)
     const { req } = ctx.getContext()
 
