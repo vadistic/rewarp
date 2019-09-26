@@ -6,4 +6,6 @@
 - https://github.com/ForetagInc/fullstack-boilerplate/blob/master/apps/api/ [passport!]
 - https://github.com/bojidaryovchev/nest-angular
 
-* https://github.com/TrejGun/nest-authorization [Apparently best]
+### Authentication
+
+- https://github.com/TrejGun/nest-authorization

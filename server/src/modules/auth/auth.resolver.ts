@@ -12,7 +12,7 @@ export class AuthResolver {
     private readonly loggerService: LoggerService,
   ) {}
 
-  logger = (msg: string) => this.loggerService.verbose(msg, AuthResolver.name)
+  logger = this.loggerService.verbose(AuthResolver.name)
 
   @Mutation(returns => AuthPayload)
   async login(

@@ -14,27 +14,27 @@ export class LoggerService extends Logger {
   formatLine = (message: string, context?: string) =>
     `\n${new Date().toLocaleString()}  - [${context}] ${message}`
 
-  log(message: string, context: string) {
+  log = (context: string) => (message: string) => {
     super.log(message, context)
     this.appendInfoLog(message, context)
   }
 
-  error(message: string, trace?: string, context?: string) {
+  error = (context: string) => (message: string, trace?: string) => {
     super.error(message, trace)
     this.appendErrLog(message, trace, context)
   }
 
-  warn(message: string, context: string) {
+  warn = (context: string) => (message: string) => {
     super.warn(message, context)
     this.appendInfoLog(message, context)
   }
 
-  debug(message: string, context: string) {
+  debug = (context: string) => (message: string) => {
     super.debug(message, context)
     this.appendInfoLog(message, context)
   }
 
-  verbose(message: string, context: string) {
+  verbose = (context: string) => (message: string) => {
     super.verbose(message, context)
     this.appendInfoLog(message, context)
   }
