@@ -1,6 +1,6 @@
 import { Field, ID, InterfaceType, ObjectType } from 'type-graphql'
 
-import { IDType } from '../nestjs-warthog/src/types'
+import { IDType } from '../nestjs-warthog/src/options'
 
 @InterfaceType()
 export abstract class BaseDeleteResponse {
