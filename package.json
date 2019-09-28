@@ -1,0 +1,12 @@
+{
+  "name": "rewarp-server",
+  "description": "Time tracking app",
+  "repository": "https://github.com/vadistic/rewarp",
+  "author": "Jakub Wadas <vadistic@gmail.com>",
+  "version": "0.1.0",
+  "license": "No License",
+  "private": true,
+  "scripts": {},
+  "dependencies": {},
+  "devDependencies": {}
+}

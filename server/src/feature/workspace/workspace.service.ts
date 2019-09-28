@@ -1,9 +1,8 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
-
-import { WorkspaceEntity } from './workspace.entity'
 import { WorkspaceWhereUniqueInput } from './workspace.dto'
+import { WorkspaceEntity } from '../../entities/workspace.entity'
 
 @Injectable()
 export class WorkspaceService {
