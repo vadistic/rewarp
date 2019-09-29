@@ -1,4 +1,5 @@
-import { InputType, Field } from 'type-graphql'
+import { InputType, Field, ArgsType } from 'type-graphql'
+import { IdSearchInput, StringSearchInput } from '../../common/base/dto/search.input'
 
 @InputType()
 export class UserWhereUniqueInput {
@@ -7,6 +8,15 @@ export class UserWhereUniqueInput {
 
   @Field({ nullable: true })
   email?: string
+}
+
+@InputType()
+export class UserWhereInput {
+  @Field(type => IdSearchInput, { nullable: true })
+  id?: IdSearchInput
+
+  @Field(type => StringSearchInput, { nullable: true })
+  email?: StringSearchInput
 }
 
 @InputType()

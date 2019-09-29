@@ -1,8 +1,8 @@
 import { ObjectType, Field } from 'type-graphql'
-import { Base } from '../base/base.model'
+import { BaseModel } from '../../common/base/base.model'
 
 @ObjectType()
-export class User extends Base {
+export class UserModel extends BaseModel {
   @Field()
   password!: string
 

@@ -1,9 +1,8 @@
 import { Field, ObjectType } from 'type-graphql'
-
-import { Base } from '../base/base.model'
+import { BaseModel } from '../../common/base/base.model'
 
 @ObjectType()
-export class Workspace extends Base {
+export class Workspace extends BaseModel {
   @Field()
   name!: string
 

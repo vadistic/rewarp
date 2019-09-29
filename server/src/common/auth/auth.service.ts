@@ -1,12 +1,12 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { Injectable, UnauthorizedException } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import bcrypt from 'bcrypt'
-
 import { JwtPayload, JwtType } from './auth.dto'
 import { CONFIG } from '../../config'
 import { AuthPayload } from './auth.model'
-import { UserService } from '../user/user.service'
+import { UserService } from '../../feature/user/user.service'
+
+/* eslint-disable @typescript-eslint/camelcase */
 
 @Injectable()
 export class AuthService {

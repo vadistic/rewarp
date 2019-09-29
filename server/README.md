@@ -1,11 +1,12 @@
 ## Inspiration
 
-- https://github.com/abouroubi/nestjs-auth-jwt/tree/master/src
-- https://github.com/notadd/nt-module-user/tree/graphql-api
-- https://github.com/dzzzzzy/Nestjs-Learning/tree/master/demo/easy-post
-- https://github.com/ForetagInc/fullstack-boilerplate/blob/master/apps/api/ [passport!]
-- https://github.com/bojidaryovchev/nest-angular
+- https://github.com/notadd/nt-module-user/tree/graphql-api [real-live graphql server]
+- https://github.com/abouroubi/nestjs-auth-jwt/tree/master/src [auth]
+- https://github.com/TrejGun/nest-authorization [auth]
+- https://github.com/bojidaryovchev/nest-angular [structure]
 
-### Authentication
+## Server
 
-- https://github.com/TrejGun/nest-authorization
+### ERD
+
+https://app.sqldbm.com/PostgreSQL/Share/wqBzw0oFgcyeufDubowYV0GFrngIE8md_DYjF4jNYw0

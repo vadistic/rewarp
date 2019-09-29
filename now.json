@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "builds": [{ "src": "src/index.ts", "use": "@now/node" }],
-  "routes": [{ "src": "/", "dest": "/src/index.ts" }],
+  "builds": [{ "src": "/server/src/index.ts", "use": "@now/node" }],
+  "routes": [{ "src": "/graphql", "dest": "/server/src/index.ts" }],
   "env": {
     "POSTGRESQL_URL": "@rewarp-postgresql-url"
   },

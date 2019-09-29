@@ -9,13 +9,54 @@ type AuthPayload {
   refresh_token: String
 }
 
+input BooleanSearchInput {
+  eq: Boolean
+  in: [Boolean!]
+  not: Boolean
+}
+
 """ISO8601 DateTime String (but unix timestamp will also be accepted"""
 scalar Date
+
+input DateSearchInput {
+  eq: Date
+  in: [Date!]
+  not: Date
+  lt: Date
+  lte: Date
+  gt: Date
+  gte: Date
+}
+
+input FloatSearchInput {
+  eq: Float
+  in: [Float!]
+  not: Float
+  lt: Float
+  lte: Float
+  gt: Float
+  gte: Float
+}
+
+input IdSearchInput {
+  eq: ID
+  in: [ID!]
+  not: ID
+}
+
+input IntSearchInput {
+  eq: Int
+  in: [Int!]
+  not: Float
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+}
 
 type Mutation {
   login(password: String!, email: String!): AuthPayload!
   refresh(token: String!): AuthPayload!
-  createUser(data: UserCreateInput!): User!
 }
 
 type Project {
@@ -38,15 +79,30 @@ input ProjectWhereUniqueInput {
 type Query {
   privateString: String!
   publicString: String!
-  user(where: UserWhereUniqueInput!): User
-  users: [User!]!
+  user(where: UserWhereUniqueInput!): UserModel
+  users(where: [UserWhereInput!]): [UserModel!]!
   project(where: ProjectWhereUniqueInput!): Project!
   projects: [Project!]!
   workspace(where: WorkspaceWhereUniqueInput!): Workspace!
   workspaces: [Workspace!]!
 }
 
-type User {
+input StringSearchInput {
+  eq: String
+  in: [String!]
+  not: String
+  contains: String
+  startsWith: String
+  endsWith: String
+}
+
+input UserCreateInput {
+  email: String!
+  password: String!
+  name: String
+}
+
+type UserModel {
   id: ID!
   createdAt: Date!
   updatedAt: Date!
@@ -56,10 +112,9 @@ type User {
   avatarUrl: String
 }
 
-input UserCreateInput {
-  email: String!
-  password: String!
-  name: String
+input UserWhereInput {
+  id: IdSearchInput
+  email: StringSearchInput
 }
 
 input UserWhereUniqueInput {

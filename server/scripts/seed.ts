@@ -4,7 +4,7 @@ import { typeOrmOptions } from '../src/app.module'
 import f from 'faker'
 import bcrypt from 'bcrypt'
 import { UserEntity } from '../src/entities/user.entity'
-import { TIMEZONES } from '../src/common/timezones'
+import { TIMEZONES } from '../src/utils/timezones'
 import { WorkspaceEntity } from '../src/entities/workspace.entity'
 import { WorkspaceUserXrefEntity } from '../src/entities/workspace-user.xref.entity'
 import { WorkspaceRoleEntity, WorkspacePermission } from '../src/entities/role.entity'
@@ -39,7 +39,7 @@ const main = async (): Promise<void> => {
       user.email = f.internet.email()
       user.description = f.hacker.phrase()
       user.avatarUrl = f.internet.avatar()
-      user.timezone = f.random.arrayElement(f.random.arrayElement(TIMEZONES).timezones)
+      user.timezone = f.random.arrayElement(f.random.arrayElement(Object.values(TIMEZONES)))
       user.location = f.address.country()
 
       return user

@@ -1,24 +1,25 @@
 import { Resolver, Query, Args, Mutation } from '@nestjs/graphql'
 import { UserService } from './user.service'
-import { UserWhereUniqueInput, UserCreateInput } from './user.dto'
-import { User } from './user.model'
+import { UserWhereUniqueInput, UserWhereInput } from './user.dto'
+import { UserModel } from './user.model'
 
-@Resolver(User)
+@Resolver(UserModel)
 export class UserResolver {
   constructor(private readonly userService: UserService) {}
 
-  @Query(returns => User, { nullable: true })
-  async user(@Args('where') where: UserWhereUniqueInput): Promise<User | null> {
+  @Query(returns => UserModel, { nullable: true })
+  async user(
+    @Args({ name: 'where', type: () => UserWhereUniqueInput })
+    where: UserWhereUniqueInput,
+  ): Promise<UserModel | null> {
     return (await this.userService.findOne(where)) || null
   }
 
-  @Query(returns => [User])
-  async users(): Promise<User[]> {
-    return this.userService.findAll()
-  }
-
-  @Mutation(returns => User)
-  async createUser(@Args('data') data: UserCreateInput): Promise<User> {
-    return this.userService.create(data)
+  @Query(returns => [UserModel])
+  async users(
+    @Args({ name: 'where', type: () => [UserWhereInput], nullable: true })
+    where?: UserWhereInput[],
+  ): Promise<UserModel[]> {
+    return this.userService.findMany(where)
   }
 }

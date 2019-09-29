@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { Repository } from 'typeorm'
-import { UserWhereUniqueInput, UserCreateInput } from './user.dto'
-import { mapFindConditions } from '../common/operators'
+import { Repository, FindConditions, Equal, FindOperator, Raw } from 'typeorm'
+import { UserWhereUniqueInput, UserCreateInput, UserWhereInput } from './user.dto'
 import { UserEntity } from '../../entities/user.entity'
+import { mapSearchOperators } from '../../common/base/search-operator'
 
 @Injectable()
 export class UserService {
@@ -13,14 +13,10 @@ export class UserService {
   ) {}
 
   async findOne(where: UserWhereUniqueInput): Promise<UserEntity | undefined> {
-    return this.userRepository.findOne({ where: mapFindConditions(where) })
+    return this.userRepository.findOne({ where })
   }
 
-  async findAll(): Promise<UserEntity[]> {
-    return this.userRepository.find()
-  }
-
-  async create(data: UserCreateInput): Promise<UserEntity> {
-    return this.userRepository.save(this.userRepository.create(data))
+  async findMany(where?: UserWhereInput[]): Promise<UserEntity[]> {
+    return this.userRepository.find({ where: mapSearchOperators(where) })
   }
 }

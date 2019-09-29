@@ -2,16 +2,14 @@ import { Module } from '@nestjs/common'
 import { GraphQLModule } from '@nestjs/graphql'
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm'
 import { join } from 'path'
-
-import { CommonModule } from './feature/common/common.module'
-import { AuthModule } from './feature/auth/auth.module'
+import { AuthModule } from './common/auth/auth.module'
+import { LoggerModule } from './common/logger/logger.module'
+import { CONFIG } from './config'
+import { CustomNamingStrategy } from './utils/naming-strategy'
 import { UserModule } from './feature/user/user.module'
 import { ProjectModule } from './feature/project/project.module'
 import { WorkspaceModule } from './feature/workspace/workspace.module'
-import { LoggerModule } from './feature/logger/logger.module'
-
-import { CONFIG } from './config'
-import { CustomNamingStrategy } from './app.naming'
+import { SharedModule } from './common/shared/shared.module'
 
 export const typeOrmOptions: TypeOrmModuleOptions = {
   type: 'postgres',
@@ -33,7 +31,7 @@ export const typeOrmOptions: TypeOrmModuleOptions = {
 
 @Module({
   imports: [
-    CommonModule,
+    SharedModule,
     LoggerModule,
     AuthModule,
     UserModule,
@@ -42,8 +40,10 @@ export const typeOrmOptions: TypeOrmModuleOptions = {
     TypeOrmModule.forRoot(typeOrmOptions),
     GraphQLModule.forRoot({
       context: ({ req }) => ({ req }),
+      playground: true,
       installSubscriptionHandlers: true,
       autoSchemaFile: 'schema.graphql',
+      path: '/',
     }),
   ],
 })
