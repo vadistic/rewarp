@@ -1,41 +1,57 @@
-import { Logger } from '@nestjs/common'
+import { Injectable, Logger as NestLogger, Provider } from '@nestjs/common'
 import { appendFile } from 'fs'
 
 const LOG_FILE_INFO = `combined.log`
 const LOG_FILE_ERROR = `error.log`
 
-export class LoggerService extends Logger {
-  appendInfoLog = (message: string, context: string) =>
-    appendFile(LOG_FILE_INFO, this.formatLine(message, context), () => {})
+@Injectable()
+export class LoggerService extends NestLogger {
+  private ctx!: string
 
-  appendErrLog = (message: string, trace?: string, context?: string) =>
-    appendFile(LOG_FILE_ERROR, this.formatLine(message, context) + '\n' + trace + '\n', () => {})
-
-  formatLine = (message: string, context?: string) =>
-    `\n${new Date().toLocaleString()}  - [${context}] ${message}`
-
-  log = (context: string) => (message: string) => {
-    super.log(message, context)
-    this.appendInfoLog(message, context)
+  constructor(context: string) {
+    super(context)
+    this.ctx = context
   }
 
-  error = (context: string) => (message: string, trace?: string) => {
+  log(message: any) {
+    super.log(message, this.ctx)
+    this.appendInfoLog(message)
+  }
+
+  error(message: any, trace?: string) {
     super.error(message, trace)
-    this.appendErrLog(message, trace, context)
+    this.appendErrLog(message, trace)
   }
 
-  warn = (context: string) => (message: string) => {
-    super.warn(message, context)
-    this.appendInfoLog(message, context)
+  warn(message: any) {
+    super.warn(message, this.ctx)
+    this.appendInfoLog(message)
   }
 
-  debug = (context: string) => (message: string) => {
-    super.debug(message, context)
-    this.appendInfoLog(message, context)
+  debug(message: any) {
+    super.debug(message, this.ctx)
+    this.appendInfoLog(message)
   }
 
-  verbose = (context: string) => (message: string) => {
-    super.verbose(message, context)
-    this.appendInfoLog(message, context)
+  verbose(message: any) {
+    super.verbose(message, this.ctx)
+    this.appendInfoLog(message)
+  }
+
+  private appendInfoLog(message: string) {
+    appendFile(LOG_FILE_INFO, this.formatLine(message), () => {})
+  }
+
+  private appendErrLog(message: string, trace?: string) {
+    appendFile(LOG_FILE_ERROR, this.formatLine(message) + '\n' + trace + '\n', () => {})
+  }
+
+  private formatLine(message: string) {
+    return `\n${new Date().toLocaleString()}  - [${this.ctx}] ${message}`
   }
 }
+
+export const loggerProvider = (context: string): Provider => ({
+  provide: LoggerService,
+  useValue: new LoggerService(context),
+})

@@ -1,13 +1,12 @@
-import { createConnection, ConnectionOptions } from 'typeorm'
-import { typeOrmOptions } from '../src/app.module'
-
-import f from 'faker'
 import bcrypt from 'bcrypt'
-import { UserEntity } from '../src/entities/user.entity'
+import f from 'faker'
+import { ConnectionOptions, createConnection } from 'typeorm'
+import { typeOrmOptions } from '../src/database/database.module'
+import { WorkspacePermission, WorkspaceRoleEntity } from '../src/database/entities/role.entity'
+import { UserEntity } from '../src/database/entities/user.entity'
+import { WorkspaceUserXrefEntity } from '../src/database/entities/workspace-user.xref.entity'
+import { WorkspaceEntity } from '../src/database/entities/workspace.entity'
 import { TIMEZONES } from '../src/utils/timezones'
-import { WorkspaceEntity } from '../src/entities/workspace.entity'
-import { WorkspaceUserXrefEntity } from '../src/entities/workspace-user.xref.entity'
-import { WorkspaceRoleEntity, WorkspacePermission } from '../src/entities/role.entity'
 
 // SEED!!!
 f.seed(123)

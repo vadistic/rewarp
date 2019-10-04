@@ -1,11 +1,8 @@
 import { ObjectType, Field } from 'type-graphql'
 import { BaseModel } from '../../common/base/base.model'
 
-@ObjectType()
-export class UserModel extends BaseModel {
-  @Field()
-  password!: string
-
+@ObjectType({ isAbstract: true })
+class UserBaseModel extends BaseModel {
   @Field()
   email!: string
 
@@ -15,3 +12,9 @@ export class UserModel extends BaseModel {
   @Field({ nullable: true })
   avatarUrl?: string
 }
+
+@ObjectType()
+export class UserPublicModel extends UserBaseModel {}
+
+@ObjectType()
+export class UserCurrentModel extends UserBaseModel {}

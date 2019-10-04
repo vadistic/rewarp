@@ -1,18 +1,13 @@
-import { Resolver, Args, Mutation, Query } from '@nestjs/graphql'
+import { UseGuards } from '@nestjs/common'
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
+import { LoggerService } from '../logger/logger.service'
+import { GraphqlAuthGuard } from './auth.guard'
 import { AuthPayload } from './auth.model'
 import { AuthService } from './auth.service'
-import { UseGuards } from '@nestjs/common'
-import { GraphqlAuthGuard } from './auth.guard'
-import { LoggerService } from '../logger/logger.service'
 
 @Resolver(AuthPayload)
 export class AuthResolver {
-  constructor(
-    private readonly authService: AuthService,
-    private readonly loggerService: LoggerService,
-  ) {}
-
-  logger = this.loggerService.verbose(AuthResolver.name)
+  constructor(private readonly authService: AuthService, private readonly log: LoggerService) {}
 
   @Mutation(returns => AuthPayload)
   async login(
@@ -21,7 +16,7 @@ export class AuthResolver {
     @Args('password')
     password: string,
   ): Promise<AuthPayload> {
-    this.logger(`mutation login (email: ${email})`)
+    this.log.verbose(`mutation login (email: ${email})`)
 
     return this.authService.login(email, password)
   }
@@ -31,7 +26,7 @@ export class AuthResolver {
     @Args('token')
     token: string,
   ): Promise<AuthPayload> {
-    this.logger(`mutation refresh (token: ${token})`)
+    this.log.verbose(`mutation refresh (token: ${token})`)
 
     return this.authService.refresh(token)
   }
@@ -41,14 +36,14 @@ export class AuthResolver {
   @Query(returns => String)
   @UseGuards(GraphqlAuthGuard)
   async privateString() {
-    this.logger(`mutation privateString`)
+    this.log.verbose(`mutation privateString`)
 
     return 'My secret string'
   }
 
   @Query(returns => String)
   async publicString() {
-    this.logger(`mutation publicString`)
+    this.log.verbose(`mutation publicString`)
 
     return 'My public string'
   }

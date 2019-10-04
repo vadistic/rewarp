@@ -1,25 +1,39 @@
-import { Resolver, Query, Args, Mutation } from '@nestjs/graphql'
-import { UserService } from './user.service'
-import { UserWhereUniqueInput, UserWhereInput } from './user.dto'
-import { UserModel } from './user.model'
+import { Args, Query, Resolver } from '@nestjs/graphql'
+import { LoadersService } from '../../database/loader/loaders.service'
+import { RepositoriesService } from '../../database/repository/repositories.service'
+import { getWhere } from '../../database/utils/search-operator'
+import { UserWhereInput, UserWhereUniqueInput } from './user.dto'
+import { UserPublicModel } from './user.model'
 
-@Resolver(UserModel)
-export class UserResolver {
-  constructor(private readonly userService: UserService) {}
+@Resolver(UserPublicModel)
+export class UserPublicResolver {
+  constructor(
+    private readonly repos: RepositoriesService,
+    private readonly loaders: LoadersService,
+  ) {}
 
-  @Query(returns => UserModel, { nullable: true })
+  @Query(returns => UserPublicModel, { nullable: true })
   async user(
     @Args({ name: 'where', type: () => UserWhereUniqueInput })
     where: UserWhereUniqueInput,
-  ): Promise<UserModel | null> {
-    return (await this.userService.findOne(where)) || null
+  ) {
+    const res = where.id
+      ? this.loaders.user.load(where.id)
+      : this.repos.user.findOne({ where, loadRelationIds: true })
+
+    return res
   }
 
-  @Query(returns => [UserModel])
+  @Query(returns => [UserPublicModel])
   async users(
-    @Args({ name: 'where', type: () => [UserWhereInput], nullable: true })
-    where?: UserWhereInput[],
-  ): Promise<UserModel[]> {
-    return this.userService.findMany(where)
+    @Args({ name: 'where', type: () => UserWhereInput, nullable: true })
+    where?: UserWhereInput,
+  ) {
+    const res = await this.repos.user.find({
+      where: getWhere(where),
+      loadRelationIds: true,
+    })
+
+    return res
   }
 }

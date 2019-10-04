@@ -1,7 +1,8 @@
-import { Entity, Column, OneToMany } from 'typeorm'
+import { Column, Entity, OneToMany } from 'typeorm'
+import { Lazy } from '../../types'
 import { BaseTenantEntity } from './base.entity'
-import { ProjectEntity } from './project.entity'
 import { EntryEntity } from './entry.entity'
+import { ProjectEntity } from './project.entity'
 
 @Entity()
 export class ClientEntity extends BaseTenantEntity {
@@ -11,9 +12,11 @@ export class ClientEntity extends BaseTenantEntity {
   @Column({ nullable: true })
   description?: string
 
+  //
+
   @OneToMany(type => ProjectEntity, project => project.client)
-  projects!: ProjectEntity[]
+  projects!: Lazy<ProjectEntity[]>
 
   @OneToMany(type => EntryEntity, entry => entry.client)
-  entries!: EntryEntity[]
+  entries!: Lazy<EntryEntity[]>
 }

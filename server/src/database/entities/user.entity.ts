@@ -1,8 +1,9 @@
 import { Column, Entity, OneToMany } from 'typeorm'
+import { Lazy } from '../../types'
 import { BaseGlobalEntity } from './base.entity'
 import { EntryEntity } from './entry.entity'
-import { WorkspaceUserXrefEntity } from './workspace-user.xref.entity'
 import { ProjectUserXrefEntity } from './project-user.xref.entity'
+import { WorkspaceUserXrefEntity } from './workspace-user.xref.entity'
 
 @Entity()
 export class UserEntity extends BaseGlobalEntity {
@@ -27,12 +28,14 @@ export class UserEntity extends BaseGlobalEntity {
   @Column('text', { nullable: true })
   avatarUrl?: string
 
+  //
+
   @OneToMany(type => EntryEntity, entry => entry.user)
-  entries!: EntryEntity[]
+  entries!: Lazy<EntryEntity[]>
 
   @OneToMany(type => WorkspaceUserXrefEntity, xref => xref.user)
-  workspacesXRef!: WorkspaceUserXrefEntity[]
+  workspacesXRef!: Lazy<WorkspaceUserXrefEntity[]>
 
   @OneToMany(type => ProjectUserXrefEntity, xref => xref.user)
-  projectsXRef!: ProjectUserXrefEntity[]
+  projectsXRef!: Lazy<ProjectUserXrefEntity[]>
 }

@@ -1,22 +1,17 @@
 import { Injectable } from '@nestjs/common'
-import { InjectRepository } from '@nestjs/typeorm'
-import { Repository, FindConditions, Equal, FindOperator, Raw } from 'typeorm'
-import { UserWhereUniqueInput, UserCreateInput, UserWhereInput } from './user.dto'
-import { UserEntity } from '../../entities/user.entity'
-import { mapSearchOperators } from '../../common/base/search-operator'
+import { RepositoriesService } from '../../database/repository/repositories.service'
+import { getWhere } from '../../database/utils/search-operator'
+import { UserWhereInput, UserWhereUniqueInput } from './user.dto'
 
 @Injectable()
 export class UserService {
-  constructor(
-    @InjectRepository(UserEntity)
-    private readonly userRepository: Repository<UserEntity>,
-  ) {}
+  constructor(private readonly repositories: RepositoriesService) {}
 
-  async findOne(where: UserWhereUniqueInput): Promise<UserEntity | undefined> {
-    return this.userRepository.findOne({ where })
+  async findOne(where: UserWhereUniqueInput) {
+    return this.repositories.user.findOne({ where })
   }
 
-  async findMany(where?: UserWhereInput[]): Promise<UserEntity[]> {
-    return this.userRepository.find({ where: mapSearchOperators(where) })
+  async findMany(where?: UserWhereInput) {
+    return this.repositories.user.find({ where: getWhere(where) })
   }
 }

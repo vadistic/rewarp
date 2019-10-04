@@ -15,18 +15,3 @@ export const isNonUndef = <T>(input: T): input is NonUndefined<T> => input !== u
 export const isNonNull = <T>(input: T): input is NonNull<T> => input !== null
 export const isNonNullable = <T>(input: T): input is NonNullable<T> =>
   input !== undefined && input !== null
-
-/**
- * false on non-objects
- */
-export const isNonEmpty = <T>(input: T) => {
-  if (typeof input !== 'object') {
-    return false
-  }
-
-  for (const val of input as any) {
-    return true
-  }
-
-  return false
-}

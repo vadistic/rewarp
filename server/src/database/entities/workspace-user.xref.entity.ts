@@ -1,8 +1,8 @@
+import { Entity, JoinTable, ManyToMany, ManyToOne } from 'typeorm'
 import { BaseTenantEntity } from './base.entity'
-import { Entity, ManyToOne, ManyToMany, JoinTable } from 'typeorm'
+import { WorkspaceRoleEntity } from './role.entity'
 import { UserEntity } from './user.entity'
 import { WorkspaceEntity } from './workspace.entity'
-import { WorkspaceRoleEntity } from './role.entity'
 
 @Entity()
 export class WorkspaceUserXrefEntity extends BaseTenantEntity {

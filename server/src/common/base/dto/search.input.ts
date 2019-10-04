@@ -1,4 +1,4 @@
-import { InputType, Field, Int, ID, Float, ClassType } from 'type-graphql'
+import { InputType, Field, Int, ID, Float } from 'type-graphql'
 
 export type SearchInput =
   | IdSearchInput

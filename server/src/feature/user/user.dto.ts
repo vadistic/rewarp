@@ -1,4 +1,4 @@
-import { InputType, Field, ArgsType } from 'type-graphql'
+import { Field, InputType } from 'type-graphql'
 import { IdSearchInput, StringSearchInput } from '../../common/base/dto/search.input'
 
 @InputType()

@@ -1,13 +1,14 @@
+import { Entity, ManyToOne } from 'typeorm'
+import { Lazy } from '../../types'
 import { BaseTenantEntity } from './base.entity'
-import { ManyToOne, Entity } from 'typeorm'
-import { TagEntity } from './tag.entity'
 import { EntryEntity } from './entry.entity'
+import { TagEntity } from './tag.entity'
 
 @Entity()
 export class TagEntryXrefEntity extends BaseTenantEntity {
   @ManyToOne(type => TagEntity, tag => tag.entriesXref)
-  tag!: TagEntity
+  tag!: Lazy<TagEntity>
 
   @ManyToOne(type => EntryEntity, entry => entry.tagsXRef)
-  entry!: EntryEntity
+  entry!: Lazy<EntryEntity>
 }

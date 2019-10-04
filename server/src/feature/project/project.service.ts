@@ -1,26 +1,21 @@
 import { Injectable } from '@nestjs/common'
-import { InjectRepository } from '@nestjs/typeorm'
-import { Repository } from 'typeorm'
-import { ProjectWhereUniqueInput, ProjectCreateInput, ProjectWhereInput } from './project.dto'
-import { ProjectEntity } from '../../entities/project.entity'
-import { mapSearchOperators } from '../../common/base/search-operator'
+import { RepositoriesService } from '../../database/repository/repositories.service'
+import { getWhere } from '../../database/utils/search-operator'
+import { ProjectCreateInput, ProjectWhereInput, ProjectWhereUniqueInput } from './project.dto'
 
 @Injectable()
 export class ProjectService {
-  constructor(
-    @InjectRepository(ProjectEntity)
-    private readonly projectRepositpry: Repository<ProjectEntity>,
-  ) {}
+  constructor(private readonly repositories: RepositoriesService) {}
 
-  async findOne(where: ProjectWhereUniqueInput): Promise<ProjectEntity | undefined> {
-    return this.projectRepositpry.findOne({ id: where.id })
+  async findOne(where: ProjectWhereUniqueInput) {
+    return this.repositories.project.findOne({ id: where.id })
   }
 
-  async findMany(where?: ProjectWhereInput[]): Promise<ProjectEntity[]> {
-    return this.projectRepositpry.find({ where: mapSearchOperators(where) })
+  async findMany(where?: ProjectWhereInput[]) {
+    return this.repositories.project.find({ where: getWhere(where) })
   }
 
-  async create(data: ProjectCreateInput): Promise<ProjectEntity> {
-    return this.projectRepositpry.save(this.projectRepositpry.create(data))
+  async create(data: ProjectCreateInput) {
+    return this.repositories.project.save(this.repositories.project.create(data))
   }
 }

@@ -10,6 +10,8 @@ export class WorkspaceEntity extends BaseGlobalEntity {
   @Column('text', { nullable: true })
   description?: string
 
+  //
+
   @OneToMany(type => WorkspaceUserXrefEntity, xref => xref.workspace)
   usersXref!: WorkspaceUserXrefEntity[]
 }

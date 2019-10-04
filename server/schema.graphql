@@ -72,17 +72,23 @@ input ProjectCreateInput {
   description: String
 }
 
+input ProjectWhereInput {
+  id: IdSearchInput
+  name: StringSearchInput
+  description: StringSearchInput
+}
+
 input ProjectWhereUniqueInput {
   id: String!
 }
 
 type Query {
+  user(where: UserWhereUniqueInput!): UserPublicModel
+  users(where: UserWhereInput): [UserPublicModel!]!
   privateString: String!
   publicString: String!
-  user(where: UserWhereUniqueInput!): UserModel
-  users(where: [UserWhereInput!]): [UserModel!]!
   project(where: ProjectWhereUniqueInput!): Project!
-  projects: [Project!]!
+  projects(where: [ProjectWhereInput!]): [Project!]!
   workspace(where: WorkspaceWhereUniqueInput!): Workspace!
   workspaces: [Workspace!]!
 }
@@ -102,11 +108,19 @@ input UserCreateInput {
   name: String
 }
 
-type UserModel {
+type UserCurrentModel {
   id: ID!
   createdAt: Date!
   updatedAt: Date!
-  password: String!
+  email: String!
+  name: String
+  avatarUrl: String
+}
+
+type UserPublicModel {
+  id: ID!
+  createdAt: Date!
+  updatedAt: Date!
   email: String!
   name: String
   avatarUrl: String
@@ -128,6 +142,7 @@ type Workspace {
   updatedAt: Date!
   name: String!
   description: String
+  users: [UserPublicModel!]!
 }
 
 input WorkspaceCreateInput {

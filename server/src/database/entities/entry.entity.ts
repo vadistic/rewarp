@@ -1,9 +1,10 @@
+import { Column, Entity, ManyToOne, OneToMany } from 'typeorm'
+import { Lazy } from '../../types'
 import { BaseTenantEntity } from './base.entity'
-import { Column, OneToMany, ManyToOne, Entity } from 'typeorm'
 import { ClientEntity } from './client.entity'
-import { UserEntity } from './user.entity'
 import { ProjectEntity } from './project.entity'
 import { TagEntryXrefEntity } from './tag-entry.xref.entity'
+import { UserEntity } from './user.entity'
 
 @Entity()
 export class EntryEntity extends BaseTenantEntity {
@@ -19,15 +20,17 @@ export class EntryEntity extends BaseTenantEntity {
   @Column('timestamptz', { nullable: true })
   end?: Date
 
+  //
+
   @ManyToOne(type => ClientEntity, client => client.entries, { nullable: true })
-  client?: ClientEntity
+  client?: Lazy<ClientEntity>
 
   @ManyToOne(type => UserEntity, user => user.entries, { nullable: true })
-  user?: UserEntity
+  user?: Lazy<UserEntity>
 
   @ManyToOne(type => ProjectEntity, project => project.entries, { nullable: true })
-  project?: ProjectEntity
+  project?: Lazy<ProjectEntity>
 
   @OneToMany(type => TagEntryXrefEntity, xref => xref.entry)
-  tagsXRef!: TagEntryXrefEntity[]
+  tagsXRef!: Lazy<TagEntryXrefEntity[]>
 }
