@@ -1,6 +1,6 @@
 import { UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
-import { LoggerService } from '../logger/logger.service'
+import { LoggerService } from '../common/logger/logger.service'
 import { GraphqlAuthGuard } from './auth.guard'
 import { AuthPayload } from './auth.model'
 import { AuthService } from './auth.service'

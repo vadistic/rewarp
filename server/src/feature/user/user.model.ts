@@ -1,5 +1,5 @@
-import { ObjectType, Field } from 'type-graphql'
-import { BaseModel } from '../../common/base/base.model'
+import { Field, ObjectType } from 'type-graphql'
+import { BaseModel } from '../../graphql/base/base.model'
 
 @ObjectType({ isAbstract: true })
 class UserBaseModel extends BaseModel {

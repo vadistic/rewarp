@@ -1,5 +1,5 @@
-import { ObjectType, Field, ID } from 'type-graphql'
-import { IDType } from '../../types'
+import { Field, ID, ObjectType } from 'type-graphql'
+import { IDType } from '../../database/entity.interface'
 
 @ObjectType({ isAbstract: true })
 export abstract class BaseModel {

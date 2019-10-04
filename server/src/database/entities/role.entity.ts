@@ -1,5 +1,4 @@
 import { Column, Entity, ManyToMany } from 'typeorm'
-import { Lazy } from '../../types'
 import { BaseTenantEntity } from './base.entity'
 import { ProjectUserXrefEntity } from './project-user.xref.entity'
 import { WorkspaceUserXrefEntity } from './workspace-user.xref.entity'
@@ -63,7 +62,7 @@ export class WorkspaceRoleEntity extends BaseTenantEntity {
   //
 
   @ManyToMany(type => WorkspaceUserXrefEntity, xref => xref.roles)
-  usersXref!: Lazy<WorkspaceUserXrefEntity[]>
+  usersXref!: WorkspaceUserXrefEntity[]
 }
 
 export enum ProjectPermission {
@@ -107,5 +106,5 @@ export class ProjectRoleEntity extends BaseTenantEntity {
   //
 
   @ManyToMany(type => ProjectUserXrefEntity, xref => xref.roles)
-  usersXref!: Lazy<ProjectUserXrefEntity[]>
+  usersXref!: ProjectUserXrefEntity[]
 }

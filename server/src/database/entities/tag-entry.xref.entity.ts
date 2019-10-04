@@ -1,5 +1,5 @@
 import { Entity, ManyToOne } from 'typeorm'
-import { Lazy } from '../../types'
+import { Lazy } from '../entity.interface'
 import { BaseTenantEntity } from './base.entity'
 import { EntryEntity } from './entry.entity'
 import { TagEntity } from './tag.entity'

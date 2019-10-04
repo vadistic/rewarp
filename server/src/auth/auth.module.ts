@@ -1,16 +1,16 @@
 import { Module } from '@nestjs/common'
 import { JwtModule } from '@nestjs/jwt'
 import { PassportModule } from '@nestjs/passport'
-import { CONFIG } from '../../config/config'
-import { UserModule } from '../../feature/user/user.module'
-import { loggerProvider } from '../logger/logger.service'
+import { LoggerService } from '../common/logger/logger.service'
+import { CONFIG } from '../config/config'
+import { RepositoriesModule } from '../database/repositories/repositories.module'
 import { AuthResolver } from './auth.resolver'
 import { AuthService } from './auth.service'
 import { JwtStrategy } from './strategies/jwt.strategy'
 
 @Module({
   imports: [
-    UserModule,
+    RepositoriesModule,
     PassportModule.register({
       defaultStrategy: 'jwt',
     }),
@@ -18,7 +18,15 @@ import { JwtStrategy } from './strategies/jwt.strategy'
       secret: CONFIG.JWT_SECRET,
     }),
   ],
-  providers: [AuthService, AuthResolver, JwtStrategy, loggerProvider(AuthModule.name)],
+  providers: [
+    AuthService,
+    AuthResolver,
+    JwtStrategy,
+    {
+      provide: LoggerService,
+      useValue: new LoggerService(AuthModule.name),
+    },
+  ],
   exports: [AuthService],
 })
 export class AuthModule {}

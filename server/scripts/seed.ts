@@ -1,12 +1,12 @@
 import bcrypt from 'bcrypt'
 import f from 'faker'
 import { ConnectionOptions, createConnection } from 'typeorm'
-import { typeOrmOptions } from '../src/database/database.module'
+import { TIMEZONES } from '../src/common/helpers/timezones.helper'
+import { databaseOptions } from '../src/database/database.config'
 import { WorkspacePermission, WorkspaceRoleEntity } from '../src/database/entities/role.entity'
 import { UserEntity } from '../src/database/entities/user.entity'
 import { WorkspaceUserXrefEntity } from '../src/database/entities/workspace-user.xref.entity'
 import { WorkspaceEntity } from '../src/database/entities/workspace.entity'
-import { TIMEZONES } from '../src/utils/timezones'
 
 // SEED!!!
 f.seed(123)
@@ -19,7 +19,7 @@ const randomIndex = <T>(arr: T[]) => f.random.number({ min: 0, max: arr.length -
 
 const main = async (): Promise<void> => {
   const ctn = await createConnection({
-    ...typeOrmOptions,
+    ...databaseOptions,
     loggerLevel: 'error',
   } as ConnectionOptions)
 

@@ -1,11 +1,14 @@
+import { UseInterceptors } from '@nestjs/common'
 import { Args, Query, Resolver } from '@nestjs/graphql'
+import { GraphqlLoggerInterceptor } from '../../common/logger/graphql-logger.interceptor'
 import { LoadersService } from '../../database/loader/loaders.service'
-import { RepositoriesService } from '../../database/repository/repositories.service'
-import { getWhere } from '../../database/utils/search-operator'
+import { RepositoriesService } from '../../database/repositories/repositories.service'
+import { mapWhere } from '../../database/utils/search-operator'
 import { UserWhereInput, UserWhereUniqueInput } from './user.dto'
 import { UserPublicModel } from './user.model'
 
 @Resolver(UserPublicModel)
+@UseInterceptors(GraphqlLoggerInterceptor)
 export class UserPublicResolver {
   constructor(
     private readonly repos: RepositoriesService,
@@ -30,7 +33,7 @@ export class UserPublicResolver {
     where?: UserWhereInput,
   ) {
     const res = await this.repos.user.find({
-      where: getWhere(where),
+      where: mapWhere(where),
       loadRelationIds: true,
     })
 

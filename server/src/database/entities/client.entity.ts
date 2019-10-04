@@ -1,5 +1,4 @@
 import { Column, Entity, OneToMany } from 'typeorm'
-import { Lazy } from '../../types'
 import { BaseTenantEntity } from './base.entity'
 import { EntryEntity } from './entry.entity'
 import { ProjectEntity } from './project.entity'
@@ -15,8 +14,8 @@ export class ClientEntity extends BaseTenantEntity {
   //
 
   @OneToMany(type => ProjectEntity, project => project.client)
-  projects!: Lazy<ProjectEntity[]>
+  projects!: ProjectEntity[]
 
   @OneToMany(type => EntryEntity, entry => entry.client)
-  entries!: Lazy<EntryEntity[]>
+  entries!: EntryEntity[]
 }

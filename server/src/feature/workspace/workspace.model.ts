@@ -1,5 +1,5 @@
 import { Field, ObjectType } from 'type-graphql'
-import { BaseModel } from '../../common/base/base.model'
+import { BaseModel } from '../../graphql/base/base.model'
 import { UserPublicModel } from '../user/user.model'
 
 @ObjectType('Workspace')

@@ -1,5 +1,5 @@
 import { Entity, JoinTable, ManyToMany, ManyToOne } from 'typeorm'
-import { Lazy } from '../../types'
+import { Lazy } from '../entity.interface'
 import { BaseTenantEntity } from './base.entity'
 import { ProjectEntity } from './project.entity'
 import { ProjectRoleEntity } from './role.entity'

@@ -1,8 +1,16 @@
-import { Injectable, Logger as NestLogger, Provider } from '@nestjs/common'
+import { Injectable, Logger as NestLogger, LogLevel } from '@nestjs/common'
 import { appendFile } from 'fs'
 
-const LOG_FILE_INFO = `combined.log`
+const LOG_FILE_DEBUG = `debug.log`
+const LOG_FILE_COMBINED = `combined.log`
 const LOG_FILE_ERROR = `error.log`
+
+/**
+ * LoggerService
+ *
+ * TODO:
+ *  - use configurable log level
+ */
 
 @Injectable()
 export class LoggerService extends NestLogger {
@@ -14,44 +22,39 @@ export class LoggerService extends NestLogger {
   }
 
   log(message: any) {
-    super.log(message, this.ctx)
-    this.appendInfoLog(message)
+    super.log('(l) ' + message, this.ctx)
+
+    this.appendLog(message, 'log', [LOG_FILE_COMBINED])
   }
 
   error(message: any, trace?: string) {
-    super.error(message, trace)
-    this.appendErrLog(message, trace)
+    super.error('(e) ' + message, trace)
+
+    this.appendLog(message + '\n\n' + trace, 'error', [LOG_FILE_COMBINED, LOG_FILE_ERROR])
   }
 
   warn(message: any) {
-    super.warn(message, this.ctx)
-    this.appendInfoLog(message)
+    super.warn('(w) ' + message, this.ctx)
+    this.appendLog(message, 'warn', [LOG_FILE_COMBINED])
   }
 
   debug(message: any) {
-    super.debug(message, this.ctx)
-    this.appendInfoLog(message)
+    super.debug('(d) ' + message, this.ctx)
+    this.appendLog(message, 'debug', [LOG_FILE_DEBUG])
   }
 
   verbose(message: any) {
-    super.verbose(message, this.ctx)
-    this.appendInfoLog(message)
+    super.verbose('(v) ' + message, this.ctx)
+    this.appendLog(message, 'verbose', [LOG_FILE_COMBINED])
   }
 
-  private appendInfoLog(message: string) {
-    appendFile(LOG_FILE_INFO, this.formatLine(message), () => {})
+  private appendLog(message: any, level: LogLevel, files: string[]) {
+    files.forEach(file => {
+      appendFile(file, this.formatLine(message, level) + '\n', () => {})
+    })
   }
 
-  private appendErrLog(message: string, trace?: string) {
-    appendFile(LOG_FILE_ERROR, this.formatLine(message) + '\n' + trace + '\n', () => {})
-  }
-
-  private formatLine(message: string) {
-    return `\n${new Date().toLocaleString()}  - [${this.ctx}] ${message}`
+  private formatLine(message: string, level: LogLevel) {
+    return `[Nest]\t${new Date().toLocaleString()}\t[${this.ctx}](${level[0]})\t${message}`
   }
 }
-
-export const loggerProvider = (context: string): Provider => ({
-  provide: LoggerService,
-  useValue: new LoggerService(context),
-})

@@ -1,5 +1,5 @@
 import { Field, InputType } from 'type-graphql'
-import { IdSearchInput, StringSearchInput } from '../../common/base/dto/search.input'
+import { IdSearchInput, StringSearchInput } from '../../graphql/base/dto/search.input'
 
 @InputType()
 export class UserWhereUniqueInput {

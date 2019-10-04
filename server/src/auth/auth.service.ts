@@ -1,8 +1,8 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import bcrypt from 'bcrypt'
-import { CONFIG } from '../../config/config'
-import { UserService } from '../../feature/user/user.service'
+import { CONFIG } from '../config/config'
+import { RepositoriesService } from '../database/repositories/repositories.service'
 import { JwtPayload, JwtType } from './auth.dto'
 import { AuthPayload } from './auth.model'
 
@@ -10,10 +10,13 @@ import { AuthPayload } from './auth.model'
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly jwtService: JwtService, private readonly userService: UserService) {}
+  constructor(
+    private readonly jwtService: JwtService,
+    private readonly repos: RepositoriesService,
+  ) {}
 
   async login(email: string, password: string): Promise<AuthPayload> {
-    const user = await this.userService.findOne({ email })
+    const user = await this.repos.user.findOne({ where: { email } })
 
     if (!user) throw new UnauthorizedException(`Invalid credentials`)
 
@@ -37,7 +40,7 @@ export class AuthService {
     if (!payload || payload.type !== JwtType.Refresh)
       throw new UnauthorizedException(`Invalid token`)
 
-    const user = await this.userService.findOne({ id: payload.sub })
+    const user = await this.repos.user.findOne({ where: { id: payload.sub } })
 
     if (!user) throw new UnauthorizedException(`Invalid token`)
 

@@ -9,6 +9,7 @@
   "scripts": {
     "script:sync": "env-cmd ts-node scripts/sync",
     "script:seed": "env-cmd ts-node scripts/seed",
+    "clean:logs": "rm *.log",
     "build": "rm -rf dist && tsc -p tsconfig.build.json",
     "format": "prettier --write \"src/**/*.ts\"",
     "start": "env-cmd -f .env ts-node -r tsconfig-paths/register src/main.ts",

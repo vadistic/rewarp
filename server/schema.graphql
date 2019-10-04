@@ -83,12 +83,12 @@ input ProjectWhereUniqueInput {
 }
 
 type Query {
-  user(where: UserWhereUniqueInput!): UserPublicModel
-  users(where: UserWhereInput): [UserPublicModel!]!
   privateString: String!
   publicString: String!
   project(where: ProjectWhereUniqueInput!): Project!
   projects(where: [ProjectWhereInput!]): [Project!]!
+  user(where: UserWhereUniqueInput!): UserPublicModel
+  users(where: UserWhereInput): [UserPublicModel!]!
   workspace(where: WorkspaceWhereUniqueInput!): Workspace!
   workspaces: [Workspace!]!
 }

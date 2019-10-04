@@ -1,5 +1,3 @@
-import { StringMap } from './types'
-
 export const TIMEZONES = {
   'UTC+14:00': ['Pacific/Kiritimati'],
   'UTC+13:00': ['Pacific/Apia', 'Pacific/Enderbury', 'Pacific/Fakaofo', 'Pacific/Tongatapu'],

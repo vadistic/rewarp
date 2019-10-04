@@ -1,5 +1,4 @@
 import { Column, Entity, OneToMany } from 'typeorm'
-import { Lazy } from '../../types'
 import { BaseGlobalEntity } from './base.entity'
 import { EntryEntity } from './entry.entity'
 import { ProjectUserXrefEntity } from './project-user.xref.entity'
@@ -31,11 +30,11 @@ export class UserEntity extends BaseGlobalEntity {
   //
 
   @OneToMany(type => EntryEntity, entry => entry.user)
-  entries!: Lazy<EntryEntity[]>
+  entries!: EntryEntity[]
 
   @OneToMany(type => WorkspaceUserXrefEntity, xref => xref.user)
-  workspacesXRef!: Lazy<WorkspaceUserXrefEntity[]>
+  workspacesXRef!: WorkspaceUserXrefEntity[]
 
   @OneToMany(type => ProjectUserXrefEntity, xref => xref.user)
-  projectsXRef!: Lazy<ProjectUserXrefEntity[]>
+  projectsXRef!: ProjectUserXrefEntity[]
 }

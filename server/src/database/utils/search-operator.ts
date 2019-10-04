@@ -9,12 +9,13 @@ import {
   Not,
   Raw,
 } from 'typeorm'
-import { SearchInput } from '../../common/base/dto/search.input'
-import { KeysOfUnion, StringMap } from '../../utils/types'
+import { KeysOfUnion, StringMap } from '../../common/types'
+import { SearchInput } from '../../graphql/base/dto/search.input'
+import {} from '../entity.interface'
 
 type SearchOpTuple = [KeysOfUnion<SearchInput>, any]
 
-const getFindOperator = ([op, value]: SearchOpTuple) => {
+const mapFindOperator = ([op, value]: SearchOpTuple) => {
   switch (op) {
     case 'eq':
       return Equal(value)
@@ -39,7 +40,7 @@ const getFindOperator = ([op, value]: SearchOpTuple) => {
   }
 }
 
-export const getWhere = <WhereInput>(where?: WhereInput) => {
+export const mapWhere = <WhereInput>(where?: WhereInput) => {
   if (!where) {
     return undefined
   }
@@ -59,7 +60,7 @@ export const getWhere = <WhereInput>(where?: WhereInput) => {
       continue
     }
 
-    result[field] = getFindOperator(operators[0])
+    result[field] = mapFindOperator(operators[0])
   }
 
   return result

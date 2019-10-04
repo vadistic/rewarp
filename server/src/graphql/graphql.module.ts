@@ -12,7 +12,7 @@ import { DateScalar } from './scalar/date.scalar'
       autoSchemaFile: 'schema.graphql',
       path: '/',
       // https://github.com/nestjs/graphql/issues/295
-      fieldResolverEnhancers: ['guards', 'interceptors'],
+      // fieldResolverEnhancers: ['guards', 'interceptors'],
     }),
   ],
   exports: [DateScalar],

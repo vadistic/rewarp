@@ -1,6 +1,6 @@
 import DataLoader from 'dataloader'
 import { Connection, Repository } from 'typeorm'
-import { Entity, IDType } from '../../types'
+import { Entity, IDType } from '../entity.interface'
 
 export class LoaderService<E extends Entity> {
   constructor(private readonly dataLoader: DataLoader<IDType, E | undefined>) {}

@@ -1,5 +1,4 @@
 import { Column, Entity, OneToMany } from 'typeorm'
-import { Lazy } from '../../types'
 import { BaseTenantEntity } from './base.entity'
 import { TagEntryXrefEntity } from './tag-entry.xref.entity'
 
@@ -14,5 +13,5 @@ export class TagEntity extends BaseTenantEntity {
   //
 
   @OneToMany(type => TagEntryXrefEntity, xref => xref.tag)
-  entriesXref!: Lazy<TagEntryXrefEntity[]>
+  entriesXref!: TagEntryXrefEntity[]
 }
