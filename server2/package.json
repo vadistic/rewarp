@@ -9,11 +9,11 @@
   "scripts": {
     "clean:logs": "rm *.log",
     "clean:build": "rm -rf dist",
+    "clean": "yarn clean:logs && yarn clean:build",
     "build": "tsc -p tsconfig.build.json",
-    "start": "ts-node src/server.ts",
-    "start:dev": "tsc-watch -p tsconfig.build.json --onSuccess \"node dist/server.js\"",
-    "start:debug": "tsc-watch -p tsconfig.build.json --onSuccess \"node --inspect-brk dist/server.js\"",
-    "start:prod": "node dist/server.js",
+    "start:dev": "tsnd --project tsconfig.build.json --transpileOnly --no-notify --clear --debounce 3000 -- src/server.ts",
+    "start:debug": "tsnd --project tsconfig.build.json --no-notify --clear --inspect -- src/server.ts",
+    "start:prod": "node -r tsconfig-paths/register dist/server.js",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "eslint src/**/*.ts",
     "test": "jest",
@@ -29,6 +29,7 @@
     "apollo-server-lambda": "^2.9.5",
     "apollo-server-micro": "^2.9.5",
     "dotenv": "^8.1.0",
+    "nexus": "^0.11.7",
     "typeorm": "^0.2.19"
   },
   "devDependencies": {
@@ -48,7 +49,7 @@
     "prettier": "1.18.2",
     "ts-jest": "^24.1.0",
     "ts-node": "^8.4.1",
-    "tsc-watch": "^4.0.0",
+    "ts-node-dev": "^1.0.0-pre.43",
     "typescript": "^3.7.0-beta"
   }
 }

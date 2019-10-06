@@ -6,24 +6,18 @@
 
     "moduleResolution": "node",
     "module": "commonjs",
-
-    "strict": true,
-
-    // "noUnusedLocals": true,
-    // "noUnusedParameters": true,
-    // "noImplicitReturns": true,
-    // "noFallthroughCasesInSwitch": true,
-
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
+
+    "incremental": true,
+
+    "strict": true,
 
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
 
     "removeComments": true,
-    "sourceMap": true,
-
-    "incremental": true
+    "sourceMap": true
   },
   "exclude": ["node_modules", "dist"]
 }
