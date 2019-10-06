@@ -17,7 +17,14 @@ export class WorkspaceResolver {
 
   @Query(returns => WorkspaceModel)
   async workspace(@Args('where') where: WorkspaceWhereUniqueInput) {
-    const res = await this.repos.workspace.findOne({ where })
+    const userId = `e9778b5a-1a47-4563-9aca-7043d90d9f76`
+
+    const res = await this.repos.workspace
+      .createQueryBuilder('a')
+      .leftJoinAndSelect('a.usersXref', 'usersXref')
+      .leftJoinAndSelect('usersXref.user', 'user')
+      .where(`user.id = :id`, { id: userId })
+      .andWhere('workspace.id = :id', { id: where.id })
 
     return res
   }
@@ -27,10 +34,10 @@ export class WorkspaceResolver {
     const userId = `e9778b5a-1a47-4563-9aca-7043d90d9f76`
 
     const res = await this.repos.workspace
-      .createQueryBuilder('workspace')
-      .leftJoinAndSelect('workspace.usersXref', 'usersXref')
+      .createQueryBuilder('a')
+      .leftJoinAndSelect('a.usersXref', 'usersXref')
       .leftJoinAndSelect('usersXref.user', 'user')
-      .where(`user.id = :id`, { id: userId })
+      .where('user.id = :id', { id: userId })
       .getMany()
 
     return res

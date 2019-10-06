@@ -15,6 +15,14 @@ input BooleanSearchInput {
   not: Boolean
 }
 
+type Client {
+  id: ID!
+  createdAt: Date!
+  updatedAt: Date!
+  name: String!
+  description: String
+}
+
 """ISO8601 DateTime String (but unix timestamp will also be accepted"""
 scalar Date
 
@@ -26,6 +34,14 @@ input DateSearchInput {
   lte: Date
   gt: Date
   gte: Date
+}
+
+type Entry {
+  id: ID!
+  createdAt: Date!
+  updatedAt: Date!
+  name: String!
+  description: String
 }
 
 input FloatSearchInput {
@@ -65,6 +81,9 @@ type Project {
   updatedAt: Date!
   name: String!
   description: String
+  client: Client
+  entries: [Entry!]
+  users: [UserPublicModel!]!
 }
 
 input ProjectCreateInput {
@@ -86,7 +105,7 @@ type Query {
   privateString: String!
   publicString: String!
   project(where: ProjectWhereUniqueInput!): Project!
-  projects(where: [ProjectWhereInput!]): [Project!]!
+  projects(where: ProjectWhereInput): [Project!]!
   user(where: UserWhereUniqueInput!): UserPublicModel
   users(where: UserWhereInput): [UserPublicModel!]!
   workspace(where: WorkspaceWhereUniqueInput!): Workspace!
@@ -132,8 +151,7 @@ input UserWhereInput {
 }
 
 input UserWhereUniqueInput {
-  id: String
-  email: String
+  id: String!
 }
 
 type Workspace {
@@ -151,5 +169,5 @@ input WorkspaceCreateInput {
 }
 
 input WorkspaceWhereUniqueInput {
-  id: String
+  id: String!
 }

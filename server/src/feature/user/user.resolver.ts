@@ -17,7 +17,7 @@ export class UserPublicResolver {
 
   @Query(returns => UserPublicModel, { nullable: true })
   async user(
-    @Args({ name: 'where', type: () => UserWhereUniqueInput })
+    @Args('where')
     where: UserWhereUniqueInput,
   ) {
     const res = where.id

@@ -1,16 +1,28 @@
 {
   "compilerOptions": {
+    "target": "es2018",
+    "lib": ["dom", "esnext"],
+    "outDir": "./dist",
+
     "moduleResolution": "node",
     "module": "commonjs",
+
+    "strict": true,
+
+    // "noUnusedLocals": true,
+    // "noUnusedParameters": true,
+    // "noImplicitReturns": true,
+    // "noFallthroughCasesInSwitch": true,
+
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "lib": ["esnext"],
-    "strict": true,
+
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es2018",
+
+    "removeComments": true,
     "sourceMap": true,
-    "outDir": "./dist",
+
     "incremental": true
   },
   "exclude": ["node_modules", "dist"]

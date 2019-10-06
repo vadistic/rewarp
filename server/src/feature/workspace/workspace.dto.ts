@@ -1,9 +1,9 @@
-import { InputType, Field } from 'type-graphql'
+import { Field, InputType } from 'type-graphql'
 
 @InputType()
 export class WorkspaceWhereUniqueInput {
-  @Field({ nullable: true })
-  id?: string
+  @Field()
+  id!: string
 }
 
 @InputType()

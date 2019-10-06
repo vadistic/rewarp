@@ -3,11 +3,8 @@ import { IdSearchInput, StringSearchInput } from '../../graphql/base/dto/search.
 
 @InputType()
 export class UserWhereUniqueInput {
-  @Field({ nullable: true })
-  id?: string
-
-  @Field({ nullable: true })
-  email?: string
+  @Field()
+  id!: string
 }
 
 @InputType()
