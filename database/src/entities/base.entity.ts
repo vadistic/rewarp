@@ -12,10 +12,10 @@ export abstract class BaseGlobalEntity extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id!: string
 
-  @CreateDateColumn()
+  @CreateDateColumn({ type: 'date' })
   createdAt!: Date
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ type: 'date' })
   updatedAt!: Date
 }
 
@@ -24,12 +24,12 @@ export abstract class BaseTenantEntity extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id!: string
 
-  @PrimaryColumn()
+  @PrimaryColumn({ type: 'text' })
   tenant!: string // uuid = workspaceId
 
-  @CreateDateColumn()
+  @CreateDateColumn({ type: 'date' })
   createdAt!: Date
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ type: 'date' })
   updatedAt!: Date
 }

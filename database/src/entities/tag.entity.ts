@@ -4,10 +4,10 @@ import { TagEntryXrefEntity } from './tag-entry.xref.entity'
 
 @Entity()
 export class TagEntity extends BaseTenantEntity {
-  @Column()
+  @Column({ type: 'text' })
   name!: string
 
-  @Column({ nullable: true })
+  @Column({ type: 'text', nullable: true })
   description?: string
 
   //

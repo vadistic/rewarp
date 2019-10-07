@@ -5,10 +5,10 @@ import { ProjectEntity } from './project.entity'
 
 @Entity()
 export class ClientEntity extends BaseTenantEntity {
-  @Column()
+  @Column({ type: 'text' })
   name!: string
 
-  @Column({ nullable: true })
+  @Column({ type: 'text', nullable: true })
   description?: string
 
   //

@@ -53,7 +53,7 @@ export class WorkspaceRoleEntity extends BaseTenantEntity {
   @Column({ nullable: true })
   description?: string
 
-  @Column({ type: 'enum', enum: WorkspacePermission, array: true })
+  @Column({ type: 'simple-enum', enum: WorkspacePermission, array: true })
   permissions!: WorkspacePermission[]
 
   @Column({ default: false })
@@ -97,7 +97,7 @@ export class ProjectRoleEntity extends BaseTenantEntity {
   @Column({ nullable: true })
   description?: string
 
-  @Column({ type: 'enum', enum: ProjectPermission, array: true })
+  @Column({ type: 'simple-enum', enum: ProjectPermission, array: true })
   permissions!: ProjectPermission[]
 
   @Column({ default: false })

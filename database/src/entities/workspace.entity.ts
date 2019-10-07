@@ -4,10 +4,10 @@ import { WorkspaceUserXrefEntity } from './workspace-user.xref.entity'
 
 @Entity()
 export class WorkspaceEntity extends BaseGlobalEntity {
-  @Column('text')
+  @Column({ type: 'text' })
   name!: string
 
-  @Column('text', { nullable: true })
+  @Column({ type: 'text', nullable: true })
   description?: string
 
   //

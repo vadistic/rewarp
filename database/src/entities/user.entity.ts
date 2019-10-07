@@ -6,25 +6,25 @@ import { WorkspaceUserXrefEntity } from './workspace-user.xref.entity'
 
 @Entity()
 export class UserEntity extends BaseGlobalEntity {
-  @Column('text', { nullable: true })
+  @Column({ type: 'text', nullable: true })
   name?: string
 
-  @Column('text', { nullable: true })
+  @Column({ type: 'text', nullable: true })
   description?: string
 
-  @Column('text', { unique: true })
+  @Column({ type: 'text', nullable: true })
   email!: string
 
-  @Column('text')
+  @Column({ type: 'text' })
   password!: string
 
-  @Column('text')
+  @Column({ type: 'text' })
   timezone!: string
 
-  @Column('text')
+  @Column({ type: 'text' })
   location!: string
 
-  @Column('text', { nullable: true })
+  @Column({ type: 'text', nullable: true })
   avatarUrl?: string
 
   //

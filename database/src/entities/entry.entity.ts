@@ -7,16 +7,16 @@ import { UserEntity } from './user.entity'
 
 @Entity()
 export class EntryEntity extends BaseTenantEntity {
-  @Column({ nullable: true })
+  @Column({ type: 'text', nullable: true })
   name?: string
 
-  @Column({ nullable: true })
+  @Column({ type: 'text', nullable: true })
   description?: string
 
-  @Column('timestamptz')
+  @Column({ type: 'date' })
   start!: Date
 
-  @Column('timestamptz', { nullable: true })
+  @Column({ type: 'date' })
   end?: Date
 
   //

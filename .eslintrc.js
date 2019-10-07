@@ -84,6 +84,16 @@ module.exports = {
       { functions: false, variables: true, classes: true },
     ],
 
+    '@typescript-eslint/no-unused-vars': [
+      'warn',
+      {
+        vars: 'all',
+        args: 'after-used',
+        ignoreRestSiblings: true,
+        argsIgnorePattern: '^(_|type|root|args|ctx|info)',
+      },
+    ],
+
     // IMPORTS
     'import/order': 'warn',
   },
