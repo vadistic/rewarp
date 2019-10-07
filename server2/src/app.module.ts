@@ -8,4 +8,8 @@ const Logger: Logger = {
   clientError: console.error,
 }
 
-export const AppModule = new GraphQLModule({ imports: [UserModule], logger: Logger })
+export const AppModule = new GraphQLModule({
+  imports: [UserModule],
+  logger: Logger,
+  context: { appModuleCtx: 'APP_MODULE_CTX' },
+})

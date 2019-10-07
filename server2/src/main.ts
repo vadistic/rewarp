@@ -1,6 +1,10 @@
 import { ApolloServer, Config } from 'apollo-server-micro'
 import { AppModule } from './app.module'
-import './load-env'
+
+/* eslint-disable */
+import 'reflect-metadata'
+import './utils/load-env'
+/* eslint-enable */
 
 export const serverConfig: Config = {
   schema: AppModule.schema,

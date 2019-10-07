@@ -1,12 +1,42 @@
 {
-  "name": "rewarp-server",
+  "name": "rewarp",
   "description": "Time tracking app",
   "repository": "https://github.com/vadistic/rewarp",
   "author": "Jakub Wadas <vadistic@gmail.com>",
   "version": "0.1.0",
   "license": "No License",
   "private": true,
-  "scripts": {},
+  "workspaces": [
+    "server2",
+    "database",
+    "web",
+    "app",
+    "shared"
+  ],
+  "scripts": {
+    "now:env": "ts-node scripts/now-secrets --stage development"
+  },
   "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {
+    "@types/jest": "24.0.18",
+    "@types/node": "12.7.8",
+    "@types/node-fetch": "^2.5.2",
+    "@types/react": "^16.9.5",
+    "@types/react-dom": "^16.9.1",
+    "@typescript-eslint/eslint-plugin": "^2.3.1",
+    "@typescript-eslint/parser": "^2.3.1",
+    "eslint": "^6.5.0",
+    "eslint-config-prettier": "^6.4.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-react": "^7.16.0",
+    "eslint-plugin-react-hooks": "^2.1.2",
+    "jest": "^24.9.0",
+    "node-fetch": "^2.6.0",
+    "prettier": "1.18.2",
+    "ts-jest": "^24.1.0",
+    "ts-node": "^8.4.1",
+    "ts-node-dev": "^1.0.0-pre.43",
+    "typescript": "^3.7.0-beta"
+  }
 }

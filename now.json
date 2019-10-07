@@ -1,13 +1,11 @@
 {
   "version": 2,
-  "builds": [{ "src": "/server/src/index.ts", "use": "@now/node" }],
-  "routes": [{ "src": "/graphql", "dest": "/server/src/index.ts" }],
-  "env": {
-    "POSTGRESQL_URL": "@rewarp-postgresql-url"
-  },
-  "build": {
-    "env": {
-      "POSTGRESQL_URL": "@rewarp-postgresql-url"
-    }
+  "public": true,
+  "builds": [{ "src": "/server2/src/main.ts", "use": "@now/node" }],
+  "routes": [{ "src": "/graphql", "dest": "/server2/src/main.ts" }],
+  "github": {
+    "autoAlias": true,
+    "silent": false,
+    "autoJobCancelation": true
   }
 }

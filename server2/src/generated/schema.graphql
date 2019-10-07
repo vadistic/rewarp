@@ -1,0 +1,25 @@
+
+
+
+type Query {
+  user(id: ID!): User
+  users: [User!]!
+}
+
+type User {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String
+  description: String
+}
+scalar DateTime
+
+
+
+
+
+
+
+
+

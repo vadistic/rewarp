@@ -1,0 +1,32 @@
+{
+  "name": "@rewarp/database",
+  "description": "Time tracking app",
+  "repository": "https://github.com/vadistic/rewarp",
+  "author": "Jakub Wadas <vadistic@gmail.com>",
+  "version": "0.1.0",
+  "license": "No License",
+  "private": true,
+  "scripts": {
+    "format": "prettier --write \"src/**/*.ts\"",
+    "lint": "eslint src/**/*.ts",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:cov": "jest --coverage",
+    "test:debug": "node --inspect-brk -r ts-node/register node_modules/.bin/jest --runInBand"
+  },
+  "engines": {
+    "node": ">= 10.x"
+  },
+  "dependencies": {
+    "@graphql-modules/core": "^0.7.13",
+    "dotenv": "^8.1.0",
+    "pg": "^7.12.1",
+    "typeorm": "^0.2.19"
+  },
+  "devDependencies": {
+    "@types/dotenv": "^6.1.1",
+    "@types/faker": "^4.1.5",
+    "@types/pg": "^7.11.2",
+    "faker": "^4.1.0"
+  }
+}

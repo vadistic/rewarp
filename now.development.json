@@ -1,0 +1,30 @@
+{
+  "version": 2,
+  "public": true,
+  "builds": [
+    {
+      "src": "/server2/src/main.ts",
+      "use": "@now/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/graphql",
+      "dest": "/server2/src/main.ts"
+    }
+  ],
+  "github": {
+    "autoAlias": true,
+    "silent": false,
+    "autoJobCancelation": true
+  },
+  "env": {
+    "NODE_ENV": "@rewarp-development-node-env",
+    "DB_USER": "@rewarp-development-db-user",
+    "DB_HOST": "@rewarp-development-db-host",
+    "DB_PASSWORD": "@rewarp-development-db-password",
+    "DB_DATABASE": "@rewarp-development-db-database",
+    "DB_PORT": "@rewarp-development-db-port",
+    "DB_SCHEMA": "@rewarp-development-db-schema"
+  }
+}

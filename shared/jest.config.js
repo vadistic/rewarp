@@ -1,6 +1,6 @@
 module.exports = {
-  name: 'server2',
-  displayName: 'server2',
+  name: 'shared',
+  displayName: 'shared',
 
   ...require('../jest.config.base'),
 }

@@ -1,21 +1,22 @@
 import { GraphQLModule } from '@graphql-modules/core'
-import { gql } from 'apollo-server-micro'
+import { CommonGraphqlModule } from '../../common/graphql/graphql.module'
+import * as typeDefs from './user.graphql'
 
 export const UserModule = new GraphQLModule({
-  typeDefs: gql`
-    type Query {
-      myData: Data
-    }
-
-    type Data {
-      field: String
-    }
-  `,
-  resolvers: config => ({
+  name: 'UserModule',
+  imports: [CommonGraphqlModule],
+  typeDefs: Object.values(typeDefs),
+  resolvers: {
     Query: {
-      myData: () => ({
-        field: 'nested',
-      }),
+      user: (root, args, ctx, info) => {
+        console.log(`UserMod`, Object.keys(ctx))
+
+        return {
+          field: 'nested',
+        }
+      },
     },
-  }),
+  },
+
+  resolversComposition: {},
 })
