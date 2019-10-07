@@ -71,3 +71,7 @@ export interface NowJson {
     [name: string]: string
   }
 }
+
+export interface Envs {
+  [key: string]: string
+}

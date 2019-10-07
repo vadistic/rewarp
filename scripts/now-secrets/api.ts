@@ -1,21 +1,30 @@
 import { isObject } from 'util'
 import { join, basename } from 'path'
-import { existsSync, readFileSync, writeFileSync } from 'fs'
+import { readFileSync, writeFileSync } from 'fs'
 import dotenv from 'dotenv'
 import fetch, { Response } from 'node-fetch'
-import { NowSecretsOptions, ListSecretsResponse, NowSecret, PackageJson, NowJson } from './types'
+import {
+  NowSecretsOptions,
+  ListSecretsResponse,
+  NowSecret,
+  PackageJson,
+  NowJson,
+  Envs,
+} from './types'
 
 // API
 // https://zeit.co/docs/api#endpoints/secrets
 
 export class NowSecretsApi {
   headers: { [key: string]: string }
+  options: NowSecretsOptions
+
   prefix: string
   projectName: string
-  options: NowSecretsOptions
-  envs: { [key: string]: string }
+  envs: Envs
   nowJsonName: string
   nowJsonPath: string
+  token: string
 
   constructor(options: NowSecretsOptions) {
     this.options = {
@@ -26,11 +35,6 @@ export class NowSecretsApi {
       ...options,
     }
 
-    this.headers = {
-      Authorization: `Bearer ${options.token}`,
-      'Content-Type': 'application/json',
-    }
-
     this.envs = this.readEnvs()
 
     this.projectName = this.getProjectName()
@@ -38,6 +42,13 @@ export class NowSecretsApi {
 
     this.nowJsonName = this.getNowJsonName()
     this.nowJsonPath = this.getNowJsonPath(this.nowJsonName)
+
+    this.token = this.getToken(this.envs)
+
+    this.headers = {
+      Authorization: `Bearer ${this.token}`,
+      'Content-Type': 'application/json',
+    }
 
     this.log(`Executing for project '${this.projectName}' with prefix '${this.prefix}'`)
   }
@@ -59,7 +70,7 @@ export class NowSecretsApi {
   public async syncApi() {
     await this.clear({ staged: true })
 
-    this.log(`Creating new now secrets...`)
+    this.log(`Creating now secrets...`)
 
     await Promise.all(
       Object.entries(this.envs).map(async ([name, value]) =>
@@ -67,7 +78,7 @@ export class NowSecretsApi {
       ),
     )
 
-    this.log(`New now secrets created!`)
+    this.log(`Now secrets created!`)
   }
 
   /** Synchronise secrets for now.stage.json */
@@ -78,14 +89,14 @@ export class NowSecretsApi {
 
   /** Deletes previous secrets */
   public async clear({ staged = true }) {
-    this.log(`Deleting previous now secrets...`)
+    this.log(`Deleting now secrets...`)
 
     const prev = await this.apiGetSecrets()
     const deduped = this.dedupeSecrets(prev, { staged })
 
     await Promise.all(deduped.map(async secret => this.apiDeleteSecret(secret.name)))
 
-    this.log(`Previous now secrets deleted!`)
+    this.log(`Now secrets deleted!`)
   }
 
   /** API */
@@ -237,6 +248,22 @@ export class NowSecretsApi {
     }
 
     return ((nowJson && nowJson.name) || (pkgJson && pkgJson.name)) as string
+  }
+
+  private getToken(envs: Envs) {
+    if (this.options.token) {
+      return this.options.token
+    }
+
+    if (process.env.NOW_TOKEN) {
+      return process.env.NOW_TOKEN
+    }
+
+    if (envs.NOW_TOKEN) {
+      return envs.NOW_TOKEN
+    }
+
+    throw Error(`Now API token is missing.`)
   }
 
   /** READ-WRITE */

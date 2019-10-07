@@ -37,6 +37,7 @@ export async function cli() {
     verbose: true,
     env: ENV_FILES[stage],
     syncJson: true,
+    overwrite: true,
   })
 
   await api.exec()
