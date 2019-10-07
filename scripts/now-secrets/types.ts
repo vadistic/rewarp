@@ -48,6 +48,10 @@ export interface NowSecretsOptions {
    * @default false
    */
   overwrite?: boolean
+  /**
+   * generated global typescript typings for process.env at provided path
+   */
+  codegen?: string
 }
 
 export interface NowSecret {

@@ -59,6 +59,7 @@ export class NowSecretsApi {
     try {
       if (this.options.syncApi) await this.syncApi()
       if (this.options.syncJson) await this.syncJson()
+      if (this.options.codegen) this.codegen()
     } catch (e) {
       console.error(e)
     }
@@ -97,6 +98,15 @@ export class NowSecretsApi {
     await Promise.all(deduped.map(async secret => this.apiDeleteSecret(secret.name)))
 
     this.log(`Now secrets deleted!`)
+  }
+
+  /** Generates env typings */
+  public codegen() {
+    const typings = this.generateTypings()
+
+    writeFileSync(join(process.cwd(), this.options.codegen || 'env.d.ts'), typings, 'utf-8')
+
+    this.log(`Typings for process.env saved at ${this.options.codegen}`)
   }
 
   /** API */
@@ -203,6 +213,33 @@ export class NowSecretsApi {
         ? name.substr(0, this.prefix.length) === this.prefix
         : name.substr(0, this.projectName.length) === this.projectName,
     )
+  }
+
+  private generateTypings() {
+    const getType = (value: unknown) => {
+      if (!isNaN(value as number)) return 'number'
+
+      if (typeof value === 'string')
+        if (value === 'false' || value === 'true') return 'boolean'
+        else return 'string'
+
+      if (typeof value === 'boolean') return 'boolean'
+
+      return 'any'
+    }
+
+    let res = ''
+    res += `declare namespace NodeJS {\n`
+    res += `  interface ProcessEnv {\n`
+
+    Object.entries(this.envs).forEach(([name, value]) => {
+      res += `    ${name}: ${getType(value)}\n`
+    })
+
+    res += `  }\n`
+    res += `}\n`
+
+    return res
   }
 
   /** CONFIG */

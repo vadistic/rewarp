@@ -38,6 +38,7 @@ export async function cli() {
     env: ENV_FILES[stage],
     syncJson: true,
     overwrite: true,
+    codegen: 'env.d.ts',
   })
 
   await api.exec()
