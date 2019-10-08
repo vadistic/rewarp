@@ -1,0 +1,35 @@
+type User {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String
+  description: String
+}
+
+input UserCreateInput {
+  name: String
+  description: String
+}
+
+input UserUpdateInput {
+  name: String
+  description: String
+}
+
+input UserWhereInput {
+  id: IdSearchInput
+  createdAt: DateTimeSearchInput
+  updatedAt: DateTimeSearchInput
+  name: StringSearchInput
+  description: StringSearchInput
+}
+
+type Query {
+  user(id: ID!): User
+  users(skip: Int, take: Int): [User!]!
+}
+
+type Mutation {
+  createUser(data: UserCreateInput!): User!
+  updateUser(id: ID!, data: UserUpdateInput!): User!
+}

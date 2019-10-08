@@ -1,7 +1,7 @@
 import { GraphQLModule, Logger } from '@graphql-modules/core'
 import { UserModule } from './modules/user/user.module'
 
-const Logger: Logger = {
+const CustomLogger: Logger = {
   log: console.log,
   error: console.error,
   warn: console.warn,
@@ -10,6 +10,6 @@ const Logger: Logger = {
 
 export const AppModule = new GraphQLModule({
   imports: [UserModule],
-  logger: Logger,
+  logger: CustomLogger,
   context: { appModuleCtx: 'APP_MODULE_CTX' },
 })

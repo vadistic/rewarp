@@ -7,20 +7,16 @@
   "license": "No License",
   "private": true,
   "scripts": {
-    "clean:logs": "rm *.log",
-    "clean:build": "rm -rf dist",
-    "clean": "yarn clean:logs && yarn clean:build",
-    "build": "tsc -p tsconfig.build.json",
-    "start:dev": "tsnd --project tsconfig.build.json --transpileOnly --no-notify --clear --debounce 3000 -- src/server.ts",
-    "start:debug": "tsnd --project tsconfig.build.json --no-notify --clear --inspect -- src/server.ts",
-    "start:prod": "node -r tsconfig-paths/register dist/server.js",
+    "clean": "rm *.log && rm -rf dist",
+    "start:dev": "bash scripts/start-dev.sh",
+    "start:debug": "bash scripts/start-debug.sh",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "eslint src/**/*.ts",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r ts-node/register node_modules/.bin/jest --runInBand",
-    "gql:gen": "graphql-codegen --config codegen.yml"
+    "gen:gql": " ts-node  -P tsconfig.json scripts/codegen"
   },
   "engines": {
     "node": ">= 10.x"
@@ -32,7 +28,9 @@
     "apollo-server": "^2.9.5",
     "apollo-server-lambda": "^2.9.5",
     "apollo-server-micro": "^2.9.5",
+    "callsites": "^3.1.0",
     "dotenv": "^8.1.0",
+    "globby": "^10.0.1",
     "graphql": "^14.5.8",
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.2.19"

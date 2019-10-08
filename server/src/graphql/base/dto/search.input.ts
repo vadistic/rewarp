@@ -24,7 +24,7 @@ export class IdSearchInput {
 
 @InputType()
 export class BooleanSearchInput {
-  @Field({ nullable: true })
+  @Field(type => Boolean, { nullable: true })
   eq?: boolean;
 
   @Field(type => [Boolean], { nullable: true })
@@ -36,7 +36,7 @@ export class BooleanSearchInput {
 
 @InputType()
 export class StringSearchInput {
-  @Field({ nullable: true })
+  @Field(type => String, { nullable: true })
   eq?: string;
 
   @Field(type => [String], { nullable: true })
@@ -57,25 +57,25 @@ export class StringSearchInput {
 
 @InputType()
 export class FloatSearchInput {
-  @Field({ nullable: true })
+  @Field(type => Float, { nullable: true })
   eq?: number;
 
   @Field(type => [Float], { nullable: true })
   in?: number[]
 
-  @Field({ nullable: true })
+  @Field(type => Float, { nullable: true })
   not?: number
 
-  @Field({ nullable: true })
+  @Field(type => Float, { nullable: true })
   lt?: number
 
-  @Field({ nullable: true })
+  @Field(type => Float, { nullable: true })
   lte?: number
 
-  @Field({ nullable: true })
+  @Field(type => Float, { nullable: true })
   gt?: number
 
-  @Field({ nullable: true })
+  @Field(type => Float, { nullable: true })
   gte?: number
 }
 
@@ -105,7 +105,7 @@ export class IntSearchInput {
 
 @InputType()
 export class DateSearchInput {
-  @Field({ nullable: true })
+  @Field(type => Date, { nullable: true })
   eq?: Date;
 
   @Field(type => [Date], { nullable: true })
@@ -114,15 +114,15 @@ export class DateSearchInput {
   @Field(type => Date, { nullable: true })
   not?: Date
 
-  @Field({ nullable: true })
+  @Field(type => Date, { nullable: true })
   lt?: Date
 
-  @Field({ nullable: true })
+  @Field(type => Date, { nullable: true })
   lte?: Date
 
-  @Field({ nullable: true })
+  @Field(type => Date, { nullable: true })
   gt?: Date
 
-  @Field({ nullable: true })
+  @Field(type => Date, { nullable: true })
   gte?: Date
 }

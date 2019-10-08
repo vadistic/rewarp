@@ -1,9 +1,10 @@
+console.log('TOP MAIN')
+
 import { ApolloServer, Config } from 'apollo-server-micro'
 import { AppModule } from './app.module'
 
 /* eslint-disable */
 import 'reflect-metadata'
-import './utils/load-env'
 /* eslint-enable */
 
 export const serverConfig: Config = {
@@ -15,5 +16,7 @@ export const serverConfig: Config = {
 }
 
 const server = new ApolloServer(serverConfig)
+
+console.log('BOTTOM MAIN')
 
 export default server.createHandler()

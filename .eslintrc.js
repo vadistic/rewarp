@@ -32,12 +32,7 @@ module.exports = {
     'plugin:prettier/recommended',
   ],
 
-  plugins: [
-    'eslint-plugin-import',
-    'eslint-plugin-react',
-    'eslint-plugin-react-hooks',
-    'eslint-plugin-prettier',
-  ],
+  plugins: ['eslint-plugin-import', 'eslint-plugin-react', 'eslint-plugin-react-hooks', 'eslint-plugin-prettier'],
 
   settings: {
     react: {
@@ -53,18 +48,7 @@ module.exports = {
   },
 
   rules: {
-    // This option will merge and override any config set with .prettierrc files
-    // https://github.com/prettier/eslint-plugin-prettier#options
-    'prettier/prettier': [
-      'error',
-      {
-        singleQuote: true,
-        trailingComma: 'all',
-        tabWidth: 2,
-        printWidth: 100,
-        semi: false,
-      },
-    ],
+    'prettier/prettier': 'warn',
 
     // REACT
 
@@ -78,11 +62,10 @@ module.exports = {
     'react-hooks/exhaustive-deps': 'warn',
 
     // TYPESCRIPT
+    // quality of life
+    '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/no-use-before-define': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/no-use-before-define': [
-      'error',
-      { functions: false, variables: true, classes: true },
-    ],
 
     '@typescript-eslint/no-unused-vars': [
       'warn',
@@ -96,6 +79,11 @@ module.exports = {
 
     // IMPORTS
     'import/order': 'warn',
+    'import/newline-after-import': 'warn',
+    'import/no-useless-path-segments': 'warn',
+
+    'import/no-extraneous-dependencies': 'error',
+    'import/no-cycle': 'error',
   },
 
   overrides: [

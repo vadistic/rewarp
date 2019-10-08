@@ -27,7 +27,9 @@ export class EntryEntity extends BaseTenantEntity {
   @ManyToOne(type => UserEntity, user => user.entries, { nullable: true })
   user?: UserEntity
 
-  @ManyToOne(type => ProjectEntity, project => project.entries, { nullable: true })
+  @ManyToOne(type => ProjectEntity, project => project.entries, {
+    nullable: true,
+  })
   project?: ProjectEntity
 
   @OneToMany(type => TagEntryXrefEntity, xref => xref.entry)

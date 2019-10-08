@@ -1,7 +1,7 @@
 {
   "version": 2,
   "public": true,
-  "builds": [{ "src": "/server2/src/main.ts", "use": "@now/node" }],
+  "builds": [{ "src": "/server2/src/main.ts", "use": "@now/node@canary" }],
   "routes": [{ "src": "/graphql", "dest": "/server2/src/main.ts" }],
   "github": {
     "autoAlias": true,

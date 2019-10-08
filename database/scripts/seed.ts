@@ -1,17 +1,25 @@
 import bcrypt from 'bcrypt'
 import f from 'faker'
 import { ConnectionOptions, createConnection } from 'typeorm'
-import { TIMEZONES } from '../src/common/helpers/timezones.helper'
-import { databaseOptions } from '../src/database/database.config'
-import { WorkspacePermission, WorkspaceRoleEntity } from '../src/database/entities/role.entity'
-import { UserEntity } from '../src/database/entities/user.entity'
-import { WorkspaceUserXrefEntity } from '../src/database/entities/workspace-user.xref.entity'
-import { WorkspaceEntity } from '../src/database/entities/workspace.entity'
+
+import { TIMEZONES } from '../../server/src/common/helpers/timezones.helper'
+import { databaseOptions } from '../../server/src/database/database.config'
+import {
+  WorkspacePermission,
+  WorkspaceRoleEntity,
+} from '../../server/src/database/entities/role.entity'
+import { UserEntity } from '../../server/src/database/entities/user.entity'
+import { WorkspaceUserXrefEntity } from '../../server/src/database/entities/workspace-user.xref.entity'
+import { WorkspaceEntity } from '../../server/src/database/entities/workspace.entity'
 
 // SEED!!!
 f.seed(123)
 
-const times = <Args extends any[], Res>(num: number, fn: (...args: Args) => Res, ...args: Args) => {
+const times = <Args extends unknown[], Res>(
+  num: number,
+  fn: (...args: Args) => Res,
+  ...args: Args
+) => {
   return Array.from({ length: num }).map(() => fn(...args))
 }
 
@@ -87,12 +95,10 @@ const main = async (): Promise<void> => {
       WorkspacePermission.WORKSPACE_USER_ACCESS,
     ]
 
-    workspaceRoleRepo.save([adminRole, memberRole])
-
     return [adminRole, memberRole]
   })
 
-  const roles = await workspaceRoleRepo.save(workspaceRoleInstances.flat())
+  await workspaceRoleRepo.save(workspaceRoleInstances.flat())
 
   // CREATE WORKSPACE USERS
 
