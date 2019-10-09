@@ -1,4 +1,5 @@
 import { Column, Entity, OneToMany } from 'typeorm'
+import { Nullable } from '../types'
 import { BaseGlobalEntity } from './base.entity'
 import { WorkspaceUserXrefEntity } from './workspace-user.xref.entity'
 
@@ -8,7 +9,7 @@ export class WorkspaceEntity extends BaseGlobalEntity {
   name!: string
 
   @Column({ type: 'text', nullable: true })
-  description?: string
+  description!: Nullable<string>
 
   //
 

@@ -1,9 +1,11 @@
 #!/bin/bash
 
-yarn tsnd \
-  --project tsconfig.build.json \
-  --transpileOnly \
-  --no-notify \
-  --clear \
-  --debounce 3000 \
-  src/server.ts
+yarn env \
+  tsnd \
+    --require tsconfig-paths/register \
+    --project tsconfig.build.json \
+    --transpileOnly \
+    --no-notify \
+    --clear \
+    --debounce 1500 \
+    src/server.ts

@@ -1,19 +1,31 @@
 import { dirname, basename, join } from 'path'
 import { promisify } from 'util'
 import { writeFile } from 'fs'
-import { codegen } from '@graphql-codegen/core'
-import { Types } from '@graphql-codegen/plugin-helpers'
 import * as typescriptPlugin from '@graphql-codegen/typescript'
 import * as resolversPlugin from '@graphql-codegen/typescript-resolvers'
 import globby from 'globby'
-import { parse, DocumentNode, ASTNode, Kind, print } from 'graphql'
+import {
+  parse,
+  DocumentNode,
+  ASTNode,
+  Kind,
+  print,
+  ObjectTypeDefinitionNode,
+  ObjectTypeExtensionNode,
+  DefinitionNode,
+} from 'graphql'
+
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { codegen } from '@graphql-codegen/core'
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { Types } from '@graphql-codegen/plugin-helpers'
 
 const writeFileP = promisify(writeFile)
 
 const typescriptConfig: typescriptPlugin.TypeScriptPluginConfig = {
   skipTypename: true,
   declarationKind: 'interface',
-  globalNamespace: true,
+  maybeValue: 'T | null | undefined',
 }
 
 const resolverConfig: resolversPlugin.TypeScriptResolversPluginConfig = {
@@ -63,10 +75,55 @@ interface GroupedFiles {
   [dir: string]: FilesGroup
 }
 
-const mergeDocs = (docs: DocumentNode[]): DocumentNode => ({
-  kind: Kind.DOCUMENT,
-  definitions: docs.flatMap(doc => doc.definitions),
-})
+type RootTypeDefinitionNode = ObjectTypeDefinitionNode | ObjectTypeExtensionNode
+
+const mergeDocs = (docs: DocumentNode[]): DocumentNode => {
+  const roots = {
+    Query: undefined as RootTypeDefinitionNode | undefined,
+    Mutation: undefined as RootTypeDefinitionNode | undefined,
+    Subscription: undefined as RootTypeDefinitionNode | undefined,
+  }
+
+  const definitions = docs
+    .flatMap(doc => doc.definitions)
+    .filter(def => {
+      const isRoot = (node: DefinitionNode): node is RootTypeDefinitionNode =>
+        (node.kind === Kind.OBJECT_TYPE_DEFINITION || node.kind === Kind.OBJECT_TYPE_EXTENSION) &&
+        Object.keys(roots).includes(node.name.value)
+
+      if (!isRoot(def)) {
+        return true
+      }
+
+      const typename = def.name.value as keyof typeof roots
+
+      if (!roots[typename]) {
+        roots[typename] = def
+        return false
+      }
+
+      roots[typename] = {
+        ...roots[typename],
+        ...def,
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        fields: [...roots[typename]!.fields!, ...def.fields!],
+        kind: Kind.OBJECT_TYPE_DEFINITION,
+        name: {
+          kind: Kind.NAME,
+          value: typename,
+        },
+      }
+
+      return false
+    })
+
+  const rootDefinitions = Object.values(roots).filter((el): el is NonNullable<typeof el> => !!el)
+
+  return {
+    kind: Kind.DOCUMENT,
+    definitions: [...rootDefinitions, ...definitions],
+  }
+}
 
 const loadFile = async (path: string): Promise<File> => {
   const exp = await import(path)

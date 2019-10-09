@@ -1,4 +1,5 @@
 import { Column, Entity, ManyToMany } from 'typeorm'
+import { Nullable } from '../types'
 import { BaseTenantEntity } from './base.entity'
 import { ProjectUserXrefEntity } from './project-user.xref.entity'
 import { WorkspaceUserXrefEntity } from './workspace-user.xref.entity'
@@ -47,16 +48,16 @@ export enum WorkspacePermission {
 
 @Entity()
 export class WorkspaceRoleEntity extends BaseTenantEntity {
-  @Column()
+  @Column({ type: 'text' })
   name!: string
 
-  @Column({ nullable: true })
-  description?: string
+  @Column({ type: 'text', nullable: true })
+  description!: Nullable<string>
 
   @Column({ type: 'simple-enum', enum: WorkspacePermission, array: true })
   permissions!: WorkspacePermission[]
 
-  @Column({ default: false })
+  @Column({ type: 'text' })
   readonly!: boolean
 
   //
@@ -91,16 +92,16 @@ export enum ProjectPermission {
 
 @Entity()
 export class ProjectRoleEntity extends BaseTenantEntity {
-  @Column()
+  @Column({ type: 'text' })
   name!: string
 
-  @Column({ nullable: true })
-  description?: string
+  @Column({ type: 'text', nullable: true })
+  description!: Nullable<string>
 
   @Column({ type: 'simple-enum', enum: ProjectPermission, array: true })
   permissions!: ProjectPermission[]
 
-  @Column({ default: false })
+  @Column({ type: 'boolean', default: false })
   readonly!: boolean
 
   //

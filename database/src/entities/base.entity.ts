@@ -1,11 +1,4 @@
-import {
-  BaseEntity,
-  CreateDateColumn,
-  Entity,
-  PrimaryColumn,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm'
+import { BaseEntity, CreateDateColumn, Entity, PrimaryColumn, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
 
 @Entity({ synchronize: false })
 export abstract class BaseGlobalEntity extends BaseEntity {

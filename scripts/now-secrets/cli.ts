@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { config } from 'dotenv'
 import { NowSecretsApi } from './api'
 
@@ -26,8 +27,7 @@ export async function cli() {
   const flagIndex = process.argv.findIndex(arg => arg === '--stage')
   const stage = flagIndex !== -1 ? (process.argv[flagIndex + 1] as NodeEnv) : 'development'
 
-  if (!['testing', 'production', 'development'].includes(stage))
-    throw Error(`Invalid argv --stage ${stage}`)
+  if (!['testing', 'production', 'development'].includes(stage)) throw Error(`Invalid argv --stage ${stage}`)
 
   // use NowSecrets
 
@@ -38,7 +38,7 @@ export async function cli() {
     env: ENV_FILES[stage],
     syncJson: true,
     overwrite: true,
-    codegen: 'env.d.ts',
+    codegen: 'types/env.d.ts',
   })
 
   await api.exec()

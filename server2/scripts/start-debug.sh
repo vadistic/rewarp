@@ -1,7 +1,9 @@
 #!/bin/bash
 
-yarn tsnd \
-  --project tsconfig.build.json \
-  --no-notify \
-  --inspect \
-  src/server.ts
+yarn env \
+   tsnd \
+    --require tsconfig-paths/register \
+    --project tsconfig.build.json \
+    --no-notify \
+    --inspect \
+    src/server.ts

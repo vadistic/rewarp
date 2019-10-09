@@ -2,7 +2,7 @@ import { createFields, updateFields, whereFields, paginationArgs } from '../../c
 
 const OMIT: string[] = []
 
-export const UserGql = /* GraphQL */ `
+const User = /* GraphQL */ `
   type User {
     id: ID!
 
@@ -11,38 +11,42 @@ export const UserGql = /* GraphQL */ `
 
     name: String
     description: String
+
+    projects: [Project!]!
   }
 `
 
-export const UserCreateInputGql = /* GraphQL */ `
+const UserCreateInput = /* GraphQL */ `
   input UserCreateInput {
-    ${createFields(UserGql, OMIT)}
+    ${createFields(User, OMIT)}
   }
 `
 
-export const UserUpdateInputGql = /* GraphQL */ `
+const UserUpdateInput = /* GraphQL */ `
   input UserUpdateInput {
-    ${updateFields(UserGql, OMIT)}
+    ${updateFields(User, OMIT)}
   }
 `
 
-export const UserWhereInputGql = /* GraphQL */ `
+const UserWhereInput = /* GraphQL */ `
   input UserWhereInput {
-    ${whereFields(UserGql, OMIT)}
+    ${whereFields(User, OMIT)}
   }
 `
 
-export const QueryGql = /* GraphQL */ `
+const Query = /* GraphQL */ `
   type Query {
     user(id: ID!): User
-    users(${paginationArgs}): [User!]!
+    users(where: UserWhereInput!, ${paginationArgs}): [User!]!
   }
-
 `
 
-export const MutationGql = /* GraphQL */ `
+const Mutation = /* GraphQL */ `
   type Mutation {
     createUser(data: UserCreateInput!): User!
     updateUser(id: ID!, data: UserUpdateInput!): User!
+    deleteUser(id: ID!, data: UserUpdateInput!): User!
   }
 `
+
+export const userTypeDefs = [User, UserCreateInput, UserUpdateInput, UserWhereInput, Query, Mutation].join('\n')

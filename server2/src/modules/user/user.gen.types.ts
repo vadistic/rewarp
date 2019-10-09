@@ -1,7 +1,7 @@
 /* eslint-disable */
 
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
-export type Maybe<T> = T | null;
+export type Maybe<T> = T | null | undefined;
 export type RequireFields<T, K extends keyof T> = { [X in Exclude<keyof T, K>]?: T[X] } & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export interface Scalars {
@@ -57,8 +57,29 @@ export interface IntSearchInput {
 }
 
 export interface Mutation {
+  createProject: Project,
+  updateProject: Project,
+  deleteProject: Project,
   createUser: User,
   updateUser: User,
+  deleteUser: User,
+}
+
+
+export interface MutationCreateProjectArgs {
+  data: ProjectCreateInput
+}
+
+
+export interface MutationUpdateProjectArgs {
+  id: Scalars['ID'],
+  data: ProjectUpdateInput
+}
+
+
+export interface MutationDeleteProjectArgs {
+  id: Scalars['ID'],
+  data: ProjectUpdateInput
 }
 
 
@@ -72,9 +93,56 @@ export interface MutationUpdateUserArgs {
   data: UserUpdateInput
 }
 
+
+export interface MutationDeleteUserArgs {
+  id: Scalars['ID'],
+  data: UserUpdateInput
+}
+
+export interface Project {
+  id: Scalars['ID'],
+  createdAt: Scalars['DateTime'],
+  updatedAt: Scalars['DateTime'],
+  name: Scalars['String'],
+  description?: Maybe<Scalars['String']>,
+  projects: Array<Project>,
+}
+
+export interface ProjectCreateInput {
+  name: Scalars['String'],
+  description?: Maybe<Scalars['String']>,
+}
+
+export interface ProjectUpdateInput {
+  name?: Maybe<Scalars['String']>,
+  description?: Maybe<Scalars['String']>,
+}
+
+export interface ProjectWhereInput {
+  id?: Maybe<IdSearchInput>,
+  createdAt?: Maybe<DateTimeSearchInput>,
+  updatedAt?: Maybe<DateTimeSearchInput>,
+  name?: Maybe<StringSearchInput>,
+  description?: Maybe<StringSearchInput>,
+}
+
 export interface Query {
+  project?: Maybe<Project>,
+  projects: Array<Project>,
   user?: Maybe<User>,
   users: Array<User>,
+}
+
+
+export interface QueryProjectArgs {
+  id: Scalars['ID']
+}
+
+
+export interface QueryProjectsArgs {
+  where: ProjectWhereInput,
+  skip?: Maybe<Scalars['Int']>,
+  take?: Maybe<Scalars['Int']>
 }
 
 
@@ -84,6 +152,7 @@ export interface QueryUserArgs {
 
 
 export interface QueryUsersArgs {
+  where: UserWhereInput,
   skip?: Maybe<Scalars['Int']>,
   take?: Maybe<Scalars['Int']>
 }
@@ -103,6 +172,7 @@ export interface User {
   updatedAt: Scalars['DateTime'],
   name?: Maybe<Scalars['String']>,
   description?: Maybe<Scalars['String']>,
+  projects: Array<Project>,
 }
 
 export interface UserCreateInput {
@@ -196,44 +266,52 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>,
   ID: ResolverTypeWrapper<Partial<Scalars['ID']>>,
-  User: ResolverTypeWrapper<Partial<User>>,
+  Project: ResolverTypeWrapper<Partial<Project>>,
   DateTime: ResolverTypeWrapper<Partial<Scalars['DateTime']>>,
   String: ResolverTypeWrapper<Partial<Scalars['String']>>,
+  ProjectWhereInput: ResolverTypeWrapper<Partial<ProjectWhereInput>>,
+  IdSearchInput: ResolverTypeWrapper<Partial<IdSearchInput>>,
+  DateTimeSearchInput: ResolverTypeWrapper<Partial<DateTimeSearchInput>>,
+  StringSearchInput: ResolverTypeWrapper<Partial<StringSearchInput>>,
   Int: ResolverTypeWrapper<Partial<Scalars['Int']>>,
+  User: ResolverTypeWrapper<Partial<User>>,
+  UserWhereInput: ResolverTypeWrapper<Partial<UserWhereInput>>,
   Mutation: ResolverTypeWrapper<{}>,
+  ProjectCreateInput: ResolverTypeWrapper<Partial<ProjectCreateInput>>,
+  ProjectUpdateInput: ResolverTypeWrapper<Partial<ProjectUpdateInput>>,
   UserCreateInput: ResolverTypeWrapper<Partial<UserCreateInput>>,
   UserUpdateInput: ResolverTypeWrapper<Partial<UserUpdateInput>>,
   Boolean: ResolverTypeWrapper<Partial<Scalars['Boolean']>>,
-  IdSearchInput: ResolverTypeWrapper<Partial<IdSearchInput>>,
   BooleanSearchInput: ResolverTypeWrapper<Partial<BooleanSearchInput>>,
-  StringSearchInput: ResolverTypeWrapper<Partial<StringSearchInput>>,
   FloatSearchInput: ResolverTypeWrapper<Partial<FloatSearchInput>>,
   Float: ResolverTypeWrapper<Partial<Scalars['Float']>>,
   IntSearchInput: ResolverTypeWrapper<Partial<IntSearchInput>>,
-  DateTimeSearchInput: ResolverTypeWrapper<Partial<DateTimeSearchInput>>,
-  UserWhereInput: ResolverTypeWrapper<Partial<UserWhereInput>>,
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Query: {},
   ID: Partial<Scalars['ID']>,
-  User: Partial<User>,
+  Project: Partial<Project>,
   DateTime: Partial<Scalars['DateTime']>,
   String: Partial<Scalars['String']>,
+  ProjectWhereInput: Partial<ProjectWhereInput>,
+  IdSearchInput: Partial<IdSearchInput>,
+  DateTimeSearchInput: Partial<DateTimeSearchInput>,
+  StringSearchInput: Partial<StringSearchInput>,
   Int: Partial<Scalars['Int']>,
+  User: Partial<User>,
+  UserWhereInput: Partial<UserWhereInput>,
   Mutation: {},
+  ProjectCreateInput: Partial<ProjectCreateInput>,
+  ProjectUpdateInput: Partial<ProjectUpdateInput>,
   UserCreateInput: Partial<UserCreateInput>,
   UserUpdateInput: Partial<UserUpdateInput>,
   Boolean: Partial<Scalars['Boolean']>,
-  IdSearchInput: Partial<IdSearchInput>,
   BooleanSearchInput: Partial<BooleanSearchInput>,
-  StringSearchInput: Partial<StringSearchInput>,
   FloatSearchInput: Partial<FloatSearchInput>,
   Float: Partial<Scalars['Float']>,
   IntSearchInput: Partial<IntSearchInput>,
-  DateTimeSearchInput: Partial<DateTimeSearchInput>,
-  UserWhereInput: Partial<UserWhereInput>,
 };
 
 export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {
@@ -241,13 +319,28 @@ export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversT
 }
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  createProject?: Resolver<ResolversTypes['Project'], ParentType, ContextType, RequireFields<MutationCreateProjectArgs, 'data'>>,
+  updateProject?: Resolver<ResolversTypes['Project'], ParentType, ContextType, RequireFields<MutationUpdateProjectArgs, 'id' | 'data'>>,
+  deleteProject?: Resolver<ResolversTypes['Project'], ParentType, ContextType, RequireFields<MutationDeleteProjectArgs, 'id' | 'data'>>,
   createUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'data'>>,
   updateUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationUpdateUserArgs, 'id' | 'data'>>,
+  deleteUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationDeleteUserArgs, 'id' | 'data'>>,
+};
+
+export type ProjectResolvers<ContextType = any, ParentType extends ResolversParentTypes['Project'] = ResolversParentTypes['Project']> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>,
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>,
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  projects?: Resolver<Array<ResolversTypes['Project']>, ParentType, ContextType>,
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  project?: Resolver<Maybe<ResolversTypes['Project']>, ParentType, ContextType, RequireFields<QueryProjectArgs, 'id'>>,
+  projects?: Resolver<Array<ResolversTypes['Project']>, ParentType, ContextType, RequireFields<QueryProjectsArgs, 'where'>>,
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserArgs, 'id'>>,
-  users?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType, QueryUsersArgs>,
+  users?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUsersArgs, 'where'>>,
 };
 
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
@@ -256,11 +349,13 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>,
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  projects?: Resolver<Array<ResolversTypes['Project']>, ParentType, ContextType>,
 };
 
 export type Resolvers<ContextType = any> = {
   DateTime?: GraphQLScalarType,
   Mutation?: MutationResolvers<ContextType>,
+  Project?: ProjectResolvers<ContextType>,
   Query?: QueryResolvers<ContextType>,
   User?: UserResolvers<ContextType>,
 };

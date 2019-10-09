@@ -1,14 +1,16 @@
-console.log('TOP MAIN')
-
-import { ApolloServer, Config } from 'apollo-server-micro'
-import { AppModule } from './app.module'
-
 /* eslint-disable */
 import 'reflect-metadata'
 /* eslint-enable */
 
+import { ApolloServer, Config } from 'apollo-server-micro'
+import { NowRequest, NowResponse } from '@now/node'
+import { AppModule } from './app.module'
+import { DatabaseProvider } from './common/database/database.provider'
+
+export const { injector, schema } = AppModule
+
 export const serverConfig: Config = {
-  schema: AppModule.schema,
+  schema: schema,
   debug: process.env.NODE_ENV === 'development',
   context: session => session,
   playground: true,
@@ -17,6 +19,10 @@ export const serverConfig: Config = {
 
 const server = new ApolloServer(serverConfig)
 
-console.log('BOTTOM MAIN')
+const main = async (req: NowRequest, res: NowResponse) => {
+  await injector.get(DatabaseProvider).init()
 
-export default server.createHandler()
+  return server.createHandler()(req, res)
+}
+
+export default main

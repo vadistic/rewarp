@@ -81,9 +81,7 @@ module.exports = {
     'import/order': 'warn',
     'import/newline-after-import': 'warn',
     'import/no-useless-path-segments': 'warn',
-
     'import/no-extraneous-dependencies': 'error',
-    'import/no-cycle': 'error',
   },
 
   overrides: [

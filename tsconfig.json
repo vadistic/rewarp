@@ -12,6 +12,12 @@
     "removeComments": true,
     "sourceMap": true,
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+
+    "baseUrl": ".",
+    "paths": {
+      "@rewarp/database": ["./database/src"],
+      "@rewarp/shared": ["./shared/src"]
+    }
   }
 }

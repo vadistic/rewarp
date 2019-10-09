@@ -7,8 +7,7 @@
   "license": "No License",
   "private": true,
   "scripts": {
-    "clean": "yarn clean:build",
-    "build": "tsc -p tsconfig.build.json",
+    "clean": "rm -rf dist",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "eslint src/**/*.ts",
     "test": "jest",

@@ -1,16 +1,10 @@
 import { isObject } from 'util'
 import { join, basename } from 'path'
 import { readFileSync, writeFileSync } from 'fs'
-import dotenv from 'dotenv'
 import fetch, { Response } from 'node-fetch'
-import {
-  NowSecretsOptions,
-  ListSecretsResponse,
-  NowSecret,
-  PackageJson,
-  NowJson,
-  Envs,
-} from './types'
+// eslint-disable-next-line import/no-extraneous-dependencies
+import dotenv from 'dotenv'
+import { NowSecretsOptions, ListSecretsResponse, NowSecret, PackageJson, NowJson, Envs } from './types'
 
 // API
 // https://zeit.co/docs/api#endpoints/secrets
@@ -74,9 +68,7 @@ export class NowSecretsApi {
     this.log(`Creating now secrets...`)
 
     await Promise.all(
-      Object.entries(this.envs).map(async ([name, value]) =>
-        this.apiCreateSecret(this.formatName(name), value),
-      ),
+      Object.entries(this.envs).map(async ([name, value]) => this.apiCreateSecret(this.formatName(name), value)),
     )
 
     this.log(`Now secrets created!`)
@@ -216,24 +208,12 @@ export class NowSecretsApi {
   }
 
   private generateTypings() {
-    const getType = (value: unknown) => {
-      if (!isNaN(value as number)) return 'number'
-
-      if (typeof value === 'string')
-        if (value === 'false' || value === 'true') return 'boolean'
-        else return 'string'
-
-      if (typeof value === 'boolean') return 'boolean'
-
-      return 'any'
-    }
-
     let res = ''
     res += `declare namespace NodeJS {\n`
     res += `  interface ProcessEnv {\n`
 
-    Object.entries(this.envs).forEach(([name, value]) => {
-      res += `    ${name}: ${getType(value)}\n`
+    Object.keys(this.envs).forEach(fieldname => {
+      res += `    ${fieldname}: string\n`
     })
 
     res += `  }\n`
@@ -334,8 +314,7 @@ export class NowSecretsApi {
     const { parsed, error } = dotenv.config({ path })
 
     if (error) throw error
-    if (!parsed || (isObject(parsed) && Object.keys(parsed).length === 0))
-      throw Error(`Could not find envs in ${path}`)
+    if (!parsed || (isObject(parsed) && Object.keys(parsed).length === 0)) throw Error(`Could not find envs in ${path}`)
 
     this.log(`Envs read from ${path}`)
 

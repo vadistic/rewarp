@@ -4,7 +4,7 @@
   "builds": [
     {
       "src": "/server2/src/main.ts",
-      "use": "@now/node"
+      "use": "@now/node@canary"
     }
   ],
   "routes": [

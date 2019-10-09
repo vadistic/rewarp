@@ -1,8 +1,15 @@
 import { ApolloServer } from 'apollo-server'
-import { serverConfig } from './main'
+import { serverConfig, injector } from './main'
+import { DatabaseProvider } from './common/database/database.provider'
 
-const server = new ApolloServer(serverConfig)
+const main = async () => {
+  await injector.get(DatabaseProvider).init()
 
-server.listen(3000).then(({ url }) => {
-  console.log(`🚀 Server started: ${url}`)
-})
+  const server = new ApolloServer(serverConfig)
+
+  server.listen(3000).then(({ url }) => {
+    console.log(`🚀 Server started: ${url}`)
+  })
+}
+
+main()

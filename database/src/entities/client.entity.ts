@@ -1,4 +1,5 @@
 import { Column, Entity, OneToMany } from 'typeorm'
+import { Nullable } from '../types'
 import { BaseTenantEntity } from './base.entity'
 import { EntryEntity } from './entry.entity'
 import { ProjectEntity } from './project.entity'
@@ -9,7 +10,7 @@ export class ClientEntity extends BaseTenantEntity {
   name!: string
 
   @Column({ type: 'text', nullable: true })
-  description?: string
+  description!: Nullable<string>
 
   //
 

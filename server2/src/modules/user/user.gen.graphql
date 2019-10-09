@@ -1,9 +1,21 @@
+type Query {
+  user(id: ID!): User
+  users(where: UserWhereInput!, skip: Int, take: Int): [User!]!
+}
+
+type Mutation {
+  createUser(data: UserCreateInput!): User!
+  updateUser(id: ID!, data: UserUpdateInput!): User!
+  deleteUser(id: ID!, data: UserUpdateInput!): User!
+}
+
 type User {
   id: ID!
   createdAt: DateTime!
   updatedAt: DateTime!
   name: String
   description: String
+  projects: [Project!]!
 }
 
 input UserCreateInput {
@@ -22,14 +34,4 @@ input UserWhereInput {
   updatedAt: DateTimeSearchInput
   name: StringSearchInput
   description: StringSearchInput
-}
-
-type Query {
-  user(id: ID!): User
-  users(skip: Int, take: Int): [User!]!
-}
-
-type Mutation {
-  createUser(data: UserCreateInput!): User!
-  updateUser(id: ID!, data: UserUpdateInput!): User!
 }

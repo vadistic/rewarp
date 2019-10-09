@@ -1,4 +1,5 @@
 import { Column, Entity, ManyToOne, OneToMany } from 'typeorm'
+import { Nullable } from '../types'
 import { BaseTenantEntity } from './base.entity'
 import { ClientEntity } from './client.entity'
 import { EntryEntity } from './entry.entity'
@@ -10,12 +11,12 @@ export class ProjectEntity extends BaseTenantEntity {
   name!: string
 
   @Column({ type: 'text', nullable: true })
-  description?: string
+  description!: Nullable<string>
 
   //
 
   @ManyToOne(type => ClientEntity, client => client.projects)
-  client?: ClientEntity
+  client!: Nullable<ClientEntity>
 
   @OneToMany(type => EntryEntity, entry => entry.project)
   entries!: EntryEntity[]

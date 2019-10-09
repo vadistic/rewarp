@@ -34,8 +34,7 @@ export type SqlitePrimaryGeneratedColumnType =
 /**
  * Postgres & SQLite column types used for @PrimaryGeneratedColumn() decorator.
  */
-export type UniversalPrimaryGeneratedColumnType = PostgresPrimaryGeneratedColumnType &
-  SqlitePrimaryGeneratedColumnType
+export type UniversalPrimaryGeneratedColumnType = PostgresPrimaryGeneratedColumnType & SqlitePrimaryGeneratedColumnType
 
 /**
  * Column types where spatial properties are used.
@@ -74,8 +73,7 @@ export type SqliteWithPrecisionColumnType =
 /**
  * Postgres & SQLite column types where precision and scale properties are used.
  */
-export type UniversalWithPrecisionColumnType = PostgresWithPrecisionColumnType &
-  SqliteWithPrecisionColumnType
+export type UniversalWithPrecisionColumnType = PostgresWithPrecisionColumnType & SqliteWithPrecisionColumnType
 
 /**
  * Postgres column types where column length is used.
@@ -100,8 +98,7 @@ export type SqliteWithLengthColumnType =
 /**
  * Postgres & SQLite column types where column length is used.
  */
-export type UniversalWithLengthColumnType = PostgresWithLengthColumnType &
-  SqliteWithLengthColumnType
+export type UniversalWithLengthColumnType = PostgresWithLengthColumnType & SqliteWithLengthColumnType
 
 /**
  * All other postgres regular column types.

@@ -1,4 +1,5 @@
 import { Column, Entity, OneToMany } from 'typeorm'
+import { Nullable } from '../types'
 import { BaseTenantEntity } from './base.entity'
 import { TagEntryXrefEntity } from './tag-entry.xref.entity'
 
@@ -8,7 +9,7 @@ export class TagEntity extends BaseTenantEntity {
   name!: string
 
   @Column({ type: 'text', nullable: true })
-  description?: string
+  description!: Nullable<string>
 
   //
 

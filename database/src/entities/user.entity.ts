@@ -1,4 +1,5 @@
 import { Column, Entity, OneToMany } from 'typeorm'
+import { Nullable } from '../types'
 import { BaseGlobalEntity } from './base.entity'
 import { EntryEntity } from './entry.entity'
 import { ProjectUserXrefEntity } from './project-user.xref.entity'
@@ -7,10 +8,10 @@ import { WorkspaceUserXrefEntity } from './workspace-user.xref.entity'
 @Entity()
 export class UserEntity extends BaseGlobalEntity {
   @Column({ type: 'text', nullable: true })
-  name?: string
+  name!: Nullable<string>
 
   @Column({ type: 'text', nullable: true })
-  description?: string
+  description!: Nullable<string>
 
   @Column({ type: 'text', nullable: true })
   email!: string
@@ -25,7 +26,7 @@ export class UserEntity extends BaseGlobalEntity {
   location!: string
 
   @Column({ type: 'text', nullable: true })
-  avatarUrl?: string
+  avatarUrl!: Nullable<string>
 
   //
 
