@@ -1,2 +1,8 @@
-/node_modules
-/dist
+node_modules
+
+server-modules
+server-old
+
+.env
+.env.development
+.env.production

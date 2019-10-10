@@ -1,8 +1,26 @@
 {
   "version": 2,
   "public": true,
-  "builds": [{ "src": "/server2/src/main.ts", "use": "@now/node@canary" }],
-  "routes": [{ "src": "/graphql", "dest": "/server2/src/main.ts" }],
+  "builds": [
+    {
+      "src": "/now-test/src/index.ts",
+      "use": "@now/node"
+    },
+    {
+      "src": "/server/apps/main/src/index.ts",
+      "use": "@now/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/test(.*)",
+      "dest": "/now-test/src/index.ts"
+    },
+    {
+      "src": "/server(.*)",
+      "dest": "/server/apps/main/src/index.ts"
+    }
+  ],
   "github": {
     "autoAlias": true,
     "silent": false,

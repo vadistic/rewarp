@@ -1,3 +1,4 @@
+// Based on fusion starter
 // https://codesandbox.io/s/github/lxe/fusion-typescript-example/tree/master/
 
 module.exports = {
@@ -62,7 +63,7 @@ module.exports = {
     'react-hooks/exhaustive-deps': 'warn',
 
     // TYPESCRIPT
-    // quality of life
+
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-use-before-define': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
@@ -78,6 +79,7 @@ module.exports = {
     ],
 
     // IMPORTS
+
     'import/order': 'warn',
     'import/newline-after-import': 'warn',
     'import/no-useless-path-segments': 'warn',

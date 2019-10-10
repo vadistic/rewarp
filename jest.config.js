@@ -1,11 +1,12 @@
 module.exports = {
-  moduleFileExtensions: ['js', 'jsx', 'json', 'ts', 'tsx'],
-  testRegex: '.test.(ts|tsx)$',
+  moduleFileExtensions: ['js', 'ts', 'jsx', 'tsx', 'json'],
+  rootDir: '.',
+  testRegex: '.(test|spec).(ts|tsx)$',
   transform: {
     '^.+\\.(ts|js|tsx|jsx)$': 'ts-jest',
   },
-  testEnvironment: 'node',
   coverageDirectory: './coverage',
+  testEnvironment: 'node',
 
   projects: [
     '<rootDir>/shared/jest.config.js',

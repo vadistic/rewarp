@@ -1,17 +1,25 @@
 {
   "compilerOptions": {
-    "moduleResolution": "node",
     "module": "commonjs",
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
+    "target": "es2018",
     "lib": ["esnext"],
-    "strict": true,
+    "declaration": true,
+    "sourceMap": true,
+    "removeComments": true,
+    "esModuleInterop": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es2018",
-    "sourceMap": true,
     "outDir": "./dist",
-    "incremental": true
+    "baseUrl": "./",
+    "incremental": true,
+    "paths": {
+      "@app/graphql": ["libs/graphql/src"],
+      "@app/graphql/*": ["libs/graphql/src/*"],
+      "@app/database": ["libs/database/src"],
+      "@app/database/*": ["libs/database/src/*"],
+      "@app/util": ["libs/util/src"],
+      "@app/util/*": ["libs/util/src/*"]
+    }
   },
   "exclude": ["node_modules", "dist"]
 }
