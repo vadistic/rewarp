@@ -7,7 +7,7 @@
       "use": "@now/node"
     },
     {
-      "src": "/server/apps/main/src/index.ts",
+      "src": "/server/dist/apps/main/apps/main/src/index.js",
       "use": "@now/node"
     }
   ],
@@ -18,7 +18,7 @@
     },
     {
       "src": "/server(.*)",
-      "dest": "/server/apps/main/src/index.ts"
+      "dest": "/server/dist/apps/main/apps/main/src/index.js"
     }
   ],
   "github": {

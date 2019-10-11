@@ -13,12 +13,14 @@
     "baseUrl": "./",
     "incremental": true,
     "paths": {
-      "@app/graphql": ["libs/graphql/src"],
-      "@app/graphql/*": ["libs/graphql/src/*"],
       "@app/database": ["libs/database/src"],
       "@app/database/*": ["libs/database/src/*"],
       "@app/util": ["libs/util/src"],
-      "@app/util/*": ["libs/util/src/*"]
+      "@app/util/*": ["libs/util/src/*"],
+      "@app/auth": ["libs/auth/src"],
+      "@app/auth/*": ["libs/auth/src/*"],
+      "@app/logger": ["libs/logger/src"],
+      "@app/logger/*": ["libs/logger/src/*"]
     }
   },
   "exclude": ["node_modules", "dist"]

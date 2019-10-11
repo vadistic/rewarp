@@ -1,7 +1,7 @@
 node_modules
 
-server-modules
-server-old
+/server-modules
+/server-old
 
 .env
 .env.development

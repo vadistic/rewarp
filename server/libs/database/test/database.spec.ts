@@ -1,19 +1,12 @@
-import { join } from 'path'
 import { Test, TestingModule } from '@nestjs/testing'
-import { DatabaseService } from '../src/database.service'
-import { DatabaseModuleConfig } from '../src/database.interfaces'
-import { DatabaseModule } from '../src'
+import { DatabaseModule, DatabaseService } from '../src'
+import { getDatabaseModuleTestConfig } from './config'
 
 describe('database > DatabaseService', () => {
   let db: DatabaseService
   let databaseModule: TestingModule
 
-  const config: DatabaseModuleConfig = {
-    name: 'default',
-    type: 'sqlite',
-    database: join(__dirname, './tmp/db.sqlite'),
-    synchronize: false,
-  }
+  const config = getDatabaseModuleTestConfig()
 
   beforeAll(async () => {
     databaseModule = await Test.createTestingModule({

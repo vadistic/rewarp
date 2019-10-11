@@ -1,4 +1,5 @@
 import { appendFile } from 'fs'
+import { join } from 'path'
 import { Injectable, Logger as NestLogger, LogLevel } from '@nestjs/common'
 
 const LOG_FILE_DEBUG = `debug.log`
@@ -50,7 +51,7 @@ export class LoggerService extends NestLogger {
 
   private appendLog(message: any, level: LogLevel, files: string[]) {
     files.forEach(file => {
-      appendFile(file, this.formatLine(message, level) + '\n', () => {})
+      appendFile(join(process.cwd(), file), this.formatLine(message, level) + '\n', () => {})
     })
   }
 

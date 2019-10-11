@@ -1,4 +1,7 @@
 {
   "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "plugins": [{ "transform": "typescript-transform-paths" }]
+  },
   "exclude": ["node_modules", "test", "dist", "**/*spec.ts"]
 }

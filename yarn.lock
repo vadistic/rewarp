@@ -9270,6 +9270,13 @@ typeorm@^0.2.19:
     yargonaut "^1.1.2"
     yargs "^13.2.1"
 
+typescript-transform-paths@^1.1.11:
+  version "1.1.11"
+  resolved "https://registry.yarnpkg.com/typescript-transform-paths/-/typescript-transform-paths-1.1.11.tgz#7dc5d8e238d7d1f03d0e58a0d685dfa6e353c1b8"
+  integrity sha512-ThuLsOuHYL5GLgDO7xf9/KkOQ1fGD+aThw4LlhToVjjelaEcy1W7UQW3XUkb52SpYCLDZqd/Qg7dzcoR6YcBQw==
+  dependencies:
+    slash "^3.0.0"
+
 typescript@3.4.5:
   version "3.4.5"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.4.5.tgz#2d2618d10bb566572b8d7aad5180d84257d70a99"
