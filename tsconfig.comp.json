@@ -1,0 +1,9 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./libs/shared/tsconfig.comp.ts" },
+    { "path": "./libs/database/tsconfig.comp.ts" },
+    { "path": "./apps/one/tsconfig.comp.ts" },
+    { "path": "./apps/two/tsconfig.comp.ts" }
+  ]
+}

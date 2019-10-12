@@ -3,27 +3,27 @@
   "public": true,
   "builds": [
     {
-      "src": "/now-test/src/index.ts",
+      "src": "/references/dist/one/index.js",
       "use": "@now/node"
     },
     {
-      "src": "/server/dist/apps/main/apps/main/src/index.js",
+      "src": "/references/dist/two/index.js",
       "use": "@now/node"
     }
   ],
   "routes": [
     {
-      "src": "/test(.*)",
-      "dest": "/now-test/src/index.ts"
+      "src": "/one(.*)",
+      "dest": "/references/dist/one/index.js"
     },
     {
-      "src": "/server(.*)",
-      "dest": "/server/dist/apps/main/apps/main/src/index.js"
+      "src": "/two(.*)",
+      "dest": "/references/dist/two/index.js"
     }
   ],
   "github": {
     "autoAlias": true,
-    "silent": false,
+    "silent": true,
     "autoJobCancelation": true
   }
 }
