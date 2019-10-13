@@ -1,0 +1,30 @@
+{
+  "name": "@apps/website",
+  "description": "Time tracking app",
+  "repository": "https://github.com/vadistic/rewarp",
+  "author": "Jakub Wadas <vadistic@gmail.com>",
+  "version": "0.1.0",
+  "license": "No License",
+  "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "tsc -b -v tsconfig.comp.json",
+    "tscw": "tsc-watch -b ./tsconfig.comp.json --onSuccess \"node ./dist/main.js\"",
+    "tsnd": "ts-node-dev --project ./tsconfig.comp.json -r tsconfig-paths/register --no-notify --debounce 1500 ./src/main.ts",
+    "tsn": "ts-node --project ./tsconfig.comp.json -r tsconfig-paths/register ./src/main.ts",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "lint": "eslint src/**/*.ts",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:cov": "jest --coverage",
+    "test:debug": "node --inspect-brk -r ts-node/register node_modules/.bin/jest --runInBand",
+    "preinstall": "yarn build"
+  },
+  "engines": {
+    "node": ">= 10.x"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

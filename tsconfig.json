@@ -2,6 +2,9 @@
   "compilerOptions": {
     "moduleResolution": "node",
 
+    "target": "es2018",
+    "lib": ["dom", "esnext"],
+
     "incremental": true,
     "declaration": true,
     "declarationMap": true,
@@ -14,12 +17,6 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
 
-    "strict": true,
-
-    "baseUrl": ".",
-    "paths": {
-      "@lib/database": ["./libs/database"],
-      "@lib/shared/*": ["./libs/shared/"]
-    }
+    "strict": true
   }
 }

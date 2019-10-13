@@ -1,8 +1,11 @@
 module.exports = {
-  moduleFileExtensions: ['js', 'jsx', 'json', 'ts', 'tsx'],
+  name: '__name__',
+  displayName: '__name__',
+
+  moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx', 'json'],
   testRegex: '.(test|spec).(ts|tsx)$',
   transform: {
-    '^.+\\.(ts|js|tsx|jsx)$': 'ts-jest',
+    '^.+\\.(ts|tsx)$': 'ts-jest',
   },
   testEnvironment: 'node',
 

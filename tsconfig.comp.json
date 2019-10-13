@@ -1,9 +1,39 @@
 {
   "files": [],
   "references": [
-    { "path": "./libs/shared/tsconfig.comp.ts" },
-    { "path": "./libs/database/tsconfig.comp.ts" },
-    { "path": "./apps/one/tsconfig.comp.ts" },
-    { "path": "./apps/two/tsconfig.comp.ts" }
+    {
+      "path": "backend/apps/modules/tsconfig.comp.json"
+    },
+    {
+      "path": "backend/apps/old/tsconfig.comp.json"
+    },
+    {
+      "path": "backend/apps/one/tsconfig.comp.json"
+    },
+    {
+      "path": "backend/apps/server/tsconfig.comp.json"
+    },
+    {
+      "path": "backend/apps/two/tsconfig.comp.json"
+    },
+    {
+      "path": "backend/libs/database/tsconfig.comp.json"
+    },
+    {
+      "path": "backend/libs/shared/tsconfig.comp.json"
+    },
+    {
+      "path": "frontend/apps/website/tsconfig.comp.json"
+    }
+  ],
+  "exclude": [
+    "**/node_modules",
+    "**/dist",
+    "**/build",
+    "**/test",
+    "**/spec",
+    "**/scripts",
+    "**/*.test.ts",
+    "**/*.spec.ts"
   ]
 }

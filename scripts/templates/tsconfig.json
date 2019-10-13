@@ -1,0 +1,7 @@
+{
+  "extends": "__parent__",
+  "compilerOptions": {
+    "tsBuildInfoFile": "dist/tsconfig.buildInfo"
+  },
+  "exclude": ["node_module", "dist", "build"]
+}
