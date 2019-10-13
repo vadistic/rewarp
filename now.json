@@ -3,6 +3,14 @@
   "public": true,
   "builds": [
     {
+      "src": "/backend/libs/database/src/index.ts",
+      "use": "@now/node"
+    },
+    {
+      "src": "/backend/libs/shared/src/index.ts",
+      "use": "@now/node"
+    },
+    {
       "src": "/backend/apps/one/src/index.ts",
       "use": "@now/node"
     },
@@ -33,5 +41,13 @@
     "autoAlias": true,
     "silent": true,
     "autoJobCancelation": true
+  },
+  "env": {
+    "DB_USER": "@rewarp-development-db-user",
+    "DB_HOST": "@rewarp-development-db-host",
+    "DB_PASSWORD": "@rewarp-development-db-password",
+    "DB_DATABASE": "@rewarp-development-db-database",
+    "DB_PORT": "@rewarp-development-db-port",
+    "DB_SCHEMA": "@rewarp-development-db-schema"
   }
 }
