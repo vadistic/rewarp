@@ -40,8 +40,9 @@ const syncPackages = async (info: WorkspaceInfo): Promise<FileString[]> => {
       version: template.data.version,
       license: template.data.license,
       private: template.data.private,
-      // main: template.data.main,
-      // types: template.data.types,
+      main: template.data.main,
+      types: template.data.types,
+      source: template.data.source,
       scripts: {
         ...prev.data.scripts,
         ...template.data.scripts,

@@ -6,6 +6,9 @@
   "version": "0.1.0",
   "license": "No License",
   "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "source": "src/index.ts",
   "scripts": {
     "clean": "rm -rf dist",
     "build": "tsc -b -v tsconfig.comp.json",
@@ -25,12 +28,13 @@
   "dependencies": {
     "@graphql-modules/core": "^0.7.13",
     "@graphql-modules/di": "^0.7.13",
-    "@libs/database": "0.1.0",
+    "@libs/database": "file:../../libs/database",
     "apollo-server-express": "^2.9.6",
     "dataloader": "^1.4.0",
     "express": "^4.17.1",
     "graphql": "^14.5.8",
     "pg": "^7.12.1",
+    "reflect-metadata": "^0.1.13",
     "typeorm": "^0.2.19"
   },
   "devDependencies": {

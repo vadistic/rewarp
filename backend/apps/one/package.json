@@ -23,7 +23,7 @@
     "node": ">= 10.x"
   },
   "dependencies": {
-    "@libs/shared": "0.1.0"
+    "@libs/shared": "file:../../libs/shared"
   },
   "devDependencies": {}
 }
