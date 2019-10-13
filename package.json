@@ -16,7 +16,7 @@
   "scripts": {
     "config:sync": "ts-node --project ./scripts/tsconfig.json ./scripts/config-sync.ts",
     "build": "tsc -b -v tsconfig.comp.json",
-    "clean": "yanr workspaces run clean"
+    "postinstall": "yarn build"
   },
   "devDependencies": {
     "@now/node": "^1.0.1",
