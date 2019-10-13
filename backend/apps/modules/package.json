@@ -21,8 +21,7 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r ts-node/register node_modules/.bin/jest --runInBand",
-    "build:std": "tsc -p tsconfig.build.json",
-    "prepare": "npm run build"
+    "build:std": "tsc -p tsconfig.build.json"
   },
   "engines": {
     "node": ">= 10.x"
