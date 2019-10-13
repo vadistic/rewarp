@@ -1,0 +1,20 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "tsBuildInfoFile": "dist/tsconfig.buildInfo",
+    "baseUrl": ".",
+    "paths": {
+      "@libs/database": [
+        "../../libs/database/src"
+      ],
+      "@libs/database/*": [
+        "../../libs/database/src/*"
+      ]
+    }
+  },
+  "exclude": [
+    "node_module",
+    "dist",
+    "build"
+  ]
+}

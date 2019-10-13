@@ -1,0 +1,26 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist",
+    "tsBuildInfoFile": "dist/tsconfig.buildInfo",
+
+    "incremental": true,
+    /*
+      specifically disabled
+       - local builds use paths @ references tsconfig.comp.json
+       - cloud should use yarn workspace compilations
+    */
+    "paths": {}
+  },
+  "exclude": [
+    "node_modules",
+    "dist",
+    "build",
+    "scripts",
+    "test",
+    "spec",
+    "**/*.test.ts",
+    "**/*.spec.ts"
+  ]
+}

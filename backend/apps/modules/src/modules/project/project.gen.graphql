@@ -1,0 +1,37 @@
+type Query {
+  project(id: ID!): Project
+  projects(where: ProjectWhereInput!, skip: Int, take: Int): [Project!]!
+}
+
+type Mutation {
+  createProject(data: ProjectCreateInput!): Project!
+  updateProject(id: ID!, data: ProjectUpdateInput!): Project!
+  deleteProject(id: ID!, data: ProjectUpdateInput!): Project!
+}
+
+type Project {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  description: String
+  projects: [Project!]!
+}
+
+input ProjectCreateInput {
+  name: String!
+  description: String
+}
+
+input ProjectUpdateInput {
+  name: String
+  description: String
+}
+
+input ProjectWhereInput {
+  id: IdSearchInput
+  createdAt: DateTimeSearchInput
+  updatedAt: DateTimeSearchInput
+  name: StringSearchInput
+  description: StringSearchInput
+}

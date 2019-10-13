@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "tsBuildInfoFile": "dist/tsconfig.buildInfo"
+  },
+  "exclude": [
+    "node_module",
+    "dist",
+    "build"
+  ]
+}

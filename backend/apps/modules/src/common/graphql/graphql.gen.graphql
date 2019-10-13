@@ -1,0 +1,52 @@
+scalar DateTime
+
+input IdSearchInput {
+  eq: String
+  in: [String!]
+  not: String
+}
+
+input BooleanSearchInput {
+  eq: Boolean
+  in: [Boolean!]
+  not: Boolean
+}
+
+input StringSearchInput {
+  eq: String
+  in: [String!]
+  not: String
+  contains: String
+  startsWith: String
+  endsWith: String
+}
+
+input FloatSearchInput {
+  eq: Float
+  in: [Float!]
+  not: Float
+  lt: Float
+  lte: Float
+  gt: Float
+  gte: Float
+}
+
+input IntSearchInput {
+  eq: Int
+  in: [Int!]
+  not: Int
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+}
+
+input DateTimeSearchInput {
+  eq: DateTime
+  in: [DateTime!]
+  not: DateTime
+  lt: DateTime
+  lte: DateTime
+  gt: DateTime
+  gte: DateTime
+}
