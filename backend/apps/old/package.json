@@ -21,13 +21,14 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r ts-node/register node_modules/.bin/jest --runInBand",
-    "build:std": "tsc -p tsconfig.build.json"
+    "build:std": "tsc -p tsconfig.build.json",
+    "preinstall": "npm run build"
   },
   "engines": {
     "node": ">= 10.x"
   },
   "dependencies": {
-    "@libs/database": "^0.1.0",
+    "@libs/database": "0.1.0",
     "@nestjs/common": "^6.8.3",
     "@nestjs/core": "^6.8.3",
     "@nestjs/graphql": "^6.5.3",
@@ -44,7 +45,8 @@
     "reflect-metadata": "^0.1.13",
     "rxjs": "^6.5.3",
     "type-graphql": "^0.17.5",
-    "typeorm": "^0.2.19"
+    "typeorm": "^0.2.19",
+    "typescript": "^3.6.4"
   },
   "devDependencies": {
     "@nestjs/cli": "^6.10.2",

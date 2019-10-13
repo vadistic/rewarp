@@ -21,13 +21,15 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r ts-node/register node_modules/.bin/jest --runInBand",
-    "build:std": "tsc -p tsconfig.build.json"
+    "build:std": "tsc -p tsconfig.build.json",
+    "preinstall": "npm run build"
   },
   "engines": {
     "node": ">= 10.x"
   },
   "dependencies": {
-    "@libs/shared": "^0.1.0"
+    "@libs/shared": "0.1.0",
+    "typescript": "^3.6.4"
   },
   "devDependencies": {}
 }

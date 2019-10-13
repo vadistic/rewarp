@@ -17,7 +17,7 @@
     "config:sync": "ts-node --project ./scripts/tsconfig.json ./scripts/config-sync.ts",
     "build": "tsc -b -v tsconfig.comp.json",
     "clean": "yanr workspaces run clean",
-    "postinstall": "lerna bootstrap && lerna run build --no-bail"
+    "postinstall": "echo THIS && lerna bootstrap && lerna link"
   },
   "devDependencies": {
     "@now/node": "^1.0.1",
