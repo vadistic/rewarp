@@ -22,7 +22,8 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r ts-node/register node_modules/.bin/jest --runInBand",
     "build:std": "tsc -p tsconfig.build.json",
-    "preinstall": "npm run build"
+    "preinstall": "npm run build",
+    "prepare": "npm run build"
   },
   "engines": {
     "node": ">= 10.x"
