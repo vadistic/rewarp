@@ -11,7 +11,6 @@
   "scripts": {
     "clean": "rm -rf dist",
     "build": "tsc -b -v tsconfig.comp.json",
-    "preinstall": "yarn build",
     "tscw": "tsc-watch -b ./tsconfig.comp.json --onSuccess \"node ./dist/main.js\"",
     "tsnd": "ts-node-dev --project ./tsconfig.comp.json -r tsconfig-paths/register --no-notify --debounce 1500 ./src/main.ts",
     "tsn": "ts-node --project ./tsconfig.comp.json -r tsconfig-paths/register ./src/main.ts",
