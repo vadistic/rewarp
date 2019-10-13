@@ -7,7 +7,7 @@ import { DateScalar } from './scalar/date.scalar'
   providers: [DateScalar],
   imports: [
     GraphQLModule.forRoot({
-      context: ({ req }) => ({ req }),
+      context: (session: any) => session,
       playground: true,
       installSubscriptionHandlers: true,
       autoSchemaFile: join(__dirname, '../schema.graphql'),

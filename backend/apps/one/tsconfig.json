@@ -1,7 +1,16 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "tsBuildInfoFile": "dist/tsconfig.buildInfo"
+    "tsBuildInfoFile": "dist/tsconfig.buildInfo",
+    "baseUrl": ".",
+    "paths": {
+      "@libs/shared": [
+        "../../libs/shared/src"
+      ],
+      "@libs/shared/*": [
+        "../../libs/shared/src/*"
+      ]
+    }
   },
   "exclude": [
     "node_module",

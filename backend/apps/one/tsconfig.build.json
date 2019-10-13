@@ -11,6 +11,7 @@
        - local builds use paths @ references tsconfig.comp.json
        - cloud should use yarn workspace compilations
     */
+    "baseUrl": ".",
     "paths": {}
   },
   "exclude": [

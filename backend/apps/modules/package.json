@@ -20,7 +20,8 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
-    "test:debug": "node --inspect-brk -r ts-node/register node_modules/.bin/jest --runInBand"
+    "test:debug": "node --inspect-brk -r ts-node/register node_modules/.bin/jest --runInBand",
+    "build:std": "tsc -p tsconfig.build.json"
   },
   "engines": {
     "node": ">= 10.x"
@@ -28,7 +29,7 @@
   "dependencies": {
     "@graphql-modules/core": "^0.7.13",
     "@graphql-modules/di": "^0.7.13",
-    "@libs/database": "file:../../libs/database",
+    "@libs/database": "^0.1.0",
     "apollo-server-express": "^2.9.6",
     "dataloader": "^1.4.0",
     "express": "^4.17.1",

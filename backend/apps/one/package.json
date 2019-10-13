@@ -6,6 +6,9 @@
   "version": "0.1.0",
   "license": "No License",
   "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "source": "src/index.ts",
   "scripts": {
     "clean": "rm -rf dist",
     "build": "tsc -b -v tsconfig.comp.json",
@@ -17,13 +20,14 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
-    "test:debug": "node --inspect-brk -r ts-node/register node_modules/.bin/jest --runInBand"
+    "test:debug": "node --inspect-brk -r ts-node/register node_modules/.bin/jest --runInBand",
+    "build:std": "tsc -p tsconfig.build.json"
   },
   "engines": {
     "node": ">= 10.x"
   },
   "dependencies": {
-    "@libs/shared": "file:../../libs/shared"
+    "@libs/shared": "^0.1.0"
   },
   "devDependencies": {}
 }
