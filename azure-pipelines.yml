@@ -2,44 +2,29 @@ trigger:
 - master
 - dev
 
-resources:
-  containers:
-  - container: main
-    image: 'ubuntu-latest'
+pool:
+  vmImage: 'ubuntu-latest'
 
-jobs:
-- job: Prepare
-  container: main
-  steps:
-  - task: NodeTool@0
-    displayName: 'install node'
-    inputs:
-      versionSpec: '10.x'
-  - script: yarn install
-    displayName: 'yarn install'
+steps:
 
-- job: Build
-  dependsOn: Prepare
-  steps:
-  - script: yarn build
-    displayName: 'yarn build'
+- task: NodeTool@0
+  displayName: 'install node'
+  inputs:
+    versionSpec: '10.x'
 
-- job: Test
-  dependsOn: Build
-  steps:
-  - script: yarn test
-    displayName: 'yarn test'
+- script: yarn install
+  displayName: 'yarn install'
 
-- job: DevRelease
-  dependsOn: Test
+- script: yarn build
+  displayName: 'yarn build'
+
+- script: yarn test
+  displayName: 'yarn test'
+
+- bash: now deploy --token $(NOW_TOKEN) -A now.development.json
   condition: and(succeeded(), eq(variables['Build.SourceBranchName'], 'dev'))
-  steps:
-  - bash: now deploy --token $(NOW_TOKEN) -A now.development.json
-    displayName: 'now deploy dev'
+  displayName: 'now deploy dev'
 
-- job: ProdRelease
-  dependsOn: Test
+- bash: now deploy --token $(NOW_TOKEN) -A now.json --prod
   condition: and(succeeded(), eq(variables['Build.SourceBranchName'], 'master'))
-  steps:
-  - bash: now deploy --token $(NOW_TOKEN) -A now.json --prod
-    displayName: 'now deploy prod'
+  displayName: 'now deploy prod'
