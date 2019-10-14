@@ -11,7 +11,9 @@
   "source": "src/index.ts",
   "scripts": {
     "clean": "rm -rf dist",
-    "build": "tsc -b -v tsconfig.comp.json",
+    "build:tsc": "tsc -p tsconfig.build.json",
+    "build:comp": "tsc -b -v tsconfig.comp.json",
+    "build": "build:comp",
     "tscw": "tsc-watch -b ./tsconfig.comp.json --onSuccess \"node ./dist/main.js\"",
     "tsnd": "ts-node-dev --project ./tsconfig.comp.json -r tsconfig-paths/register --no-notify --debounce 1500 ./src/main.ts",
     "tsn": "ts-node --project ./tsconfig.comp.json -r tsconfig-paths/register ./src/main.ts",
@@ -20,8 +22,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
-    "test:debug": "node --inspect-brk -r ts-node/register node_modules/.bin/jest --runInBand",
-    "build:std": "tsc -p tsconfig.build.json"
+    "test:debug": "node --inspect-brk -r ts-node/register node_modules/.bin/jest --runInBand"
   },
   "engines": {
     "node": ">= 10.x"

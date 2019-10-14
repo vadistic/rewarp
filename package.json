@@ -14,9 +14,8 @@
     "scripts"
   ],
   "scripts": {
-    "config:sync": "ts-node --project ./scripts/tsconfig.json ./scripts/config-sync.ts",
-    "build": "tsc -b -v tsconfig.comp.json",
-    "postinstall": "yarn build"
+    "sync-config": "ts-node --project ./scripts/tsconfig.json ./scripts/config-sync.ts",
+    "build": "tsc -b -v tsconfig.comp.json"
   },
   "devDependencies": {
     "@now/node": "^1.0.1",
@@ -35,6 +34,7 @@
     "eslint-plugin-react-hooks": "^2.1.2",
     "jest": "^24.9.0",
     "lerna": "^3.17.0",
+    "now": "^16.3.1",
     "prettier": "^1.18.2",
     "ts-jest": "^24.1.0",
     "ts-node": "^8.4.1",
