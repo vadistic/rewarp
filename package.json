@@ -15,7 +15,8 @@
   ],
   "scripts": {
     "sync-config": "ts-node --project ./scripts/tsconfig.json ./scripts/config-sync.ts",
-    "build": "tsc -b -v tsconfig.comp.json"
+    "build": "tsc -b -v tsconfig.comp.json",
+    "test": "jest"
   },
   "devDependencies": {
     "@now/node": "^1.0.1",

@@ -1,15 +1,9 @@
 {
   "version": 2,
+  "name": "rewarp",
+  "alias": "rewarp",
   "public": true,
   "builds": [
-    {
-      "src": "/backend/libs/database/src/index.ts",
-      "use": "@now/node"
-    },
-    {
-      "src": "/backend/libs/shared/src/index.ts",
-      "use": "@now/node"
-    },
     {
       "src": "/backend/apps/one/src/index.ts",
       "use": "@now/node"
@@ -37,11 +31,6 @@
       "dest": "/backend/apps/modules/src/index.ts"
     }
   ],
-  "github": {
-    "autoAlias": true,
-    "silent": true,
-    "autoJobCancelation": true
-  },
   "env": {
     "DB_USER": "@rewarp-development-db-user",
     "DB_HOST": "@rewarp-development-db-host",
