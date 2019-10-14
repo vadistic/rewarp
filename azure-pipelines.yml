@@ -16,6 +16,5 @@ steps:
 - script: yarn build
   displayName: 'yarn build'
 
-- script: now deploy -t $(NOW_TOKEN)
+- bash: now deploy -t $(NOW_TOKEN)
   displayName: 'now deploy'
-
