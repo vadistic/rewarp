@@ -4,11 +4,12 @@ trigger:
 
 resources:
   containers:
-  - container: 'main'
+  - container: main
     image: 'ubuntu-latest'
 
 jobs:
 - job: Prepare
+  container: main
   steps:
   - task: NodeTool@0
     displayName: 'install node'
